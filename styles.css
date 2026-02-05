@@ -130,8 +130,23 @@ a {
 
 .logo-block {
   display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo-text {
+  display: flex;
   flex-direction: column;
   gap: 4px;
+}
+
+.logo-image {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  object-fit: cover;
+  border: 1px solid rgba(0, 255, 154, 0.4);
+  box-shadow: 0 0 12px rgba(0, 255, 154, 0.25);
 }
 
 .logo {
