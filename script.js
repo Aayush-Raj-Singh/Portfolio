@@ -136,7 +136,7 @@ function renderContact() {
   appendHTML(`
     <div class="output-block">
       <div class="output-title">Contact</div>
-      <div>Email: <a class="terminal-link" href="mailto:hello@aayushraj.com">hello@aayushraj.com</a></div>
+      <div>Email: <a class="terminal-link" href="mailto:aayush.raj@myyahoo.com">aayush.raj@myyahoo.com</a></div>
       <div>LinkedIn: <a class="terminal-link" href="https://www.linkedin.com/in/aayush-raj-77a1bb237" target="_blank" rel="noreferrer">linkedin.com/in/aayush-raj-77a1bb237</a></div>
       <div>GitHub: <a class="terminal-link" href="https://github.com/Aayush-Raj-Singh" target="_blank" rel="noreferrer">github.com/Aayush-Raj-Singh</a></div>
       <div>TryHackMe: <a class="terminal-link" href="https://tryhackme.com/p/Abhayaprabha" target="_blank" rel="noreferrer">tryhackme.com/p/Abhayaprabha</a></div>
@@ -177,17 +177,17 @@ function renderLs() {
 }
 
 async function renderResumeSkills() {
-  appendOutput("Scanning cv.pdf for skill extraction...");
-  const hasCv = await fetch("cv.pdf", { method: "HEAD" })
+  appendOutput("Scanning assets/Aayush_Raj_Cybersecurity_Resume.pdf for skill extraction...");
+  const hasCv = await fetch("assets/Aayush_Raj_Cybersecurity_Resume.pdf", { method: "HEAD" })
     .then((response) => response.ok)
     .catch(() => false);
 
   appendHTML(`
     <div class="output-block">
       <div class="output-title">Resume Parser</div>
-      <div>Status: ${hasCv ? "cv.pdf detected" : "cv.pdf not found"}</div>
+      <div>Status: ${hasCv ? "Resume detected" : "Resume not found"}</div>
       <div>Mode: Future-ready parser (PDF extraction planned)</div>
-      <div class="output-hint">Drop your resume at <span class="terminal-link">cv.pdf</span> to enable parsing.</div>
+      <div class="output-hint">Drop your resume in <span class="terminal-link">assets/</span> to enable parsing.</div>
     </div>
   `);
 

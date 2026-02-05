@@ -30,6 +30,23 @@ body {
   position: relative;
 }
 
+body::before {
+  content: "root@aayush:~$ init security-modules\Aloading: kernel hooks [ok]\Aloading: blue-team sensor [ok]\Aroot@aayush:~$ tail -f /var/log/auth.log\Asshd[1023]: Accepted publickey for blue from 10.0.0.5\Asshd[1024]: Failed password for invalid user admin from 10.0.0.9\Aroot@aayush:~$ nmap -sV 10.0.0.0/24\ADiscovered open port 22/tcp on 10.0.0.12\ADiscovered open port 443/tcp on 10.0.0.21\Aroot@aayush:~$ sudo ufw status\AStatus: active\Aroot@aayush:~$ journalctl -p 3 -xn\Akernel: audit: DENIED exec /usr/bin/unknown\Aroot@aayush:~$ cat /etc/hosts\A127.0.0.1 localhost\A10.0.0.21 core-gateway\Aroot@aayush:~$ ls -la /opt/defense\Adrwxr-xr-x 8 root root 4096 Feb 05 19:10 monitors\Aroot@aayush:~$ ./deploy.sh --harden\A[+] Applying CIS baseline...\A[+] Rotating credentials...\A[+] Endpoint telemetry online\Aroot@aayush:~$\Asession: secure | status: green\A\Aroot@aayush:~$ init security-modules\Aloading: kernel hooks [ok]\Aloading: blue-team sensor [ok]\Aroot@aayush:~$ tail -f /var/log/auth.log\Asshd[1023]: Accepted publickey for blue from 10.0.0.5\Asshd[1024]: Failed password for invalid user admin from 10.0.0.9\Aroot@aayush:~$ nmap -sV 10.0.0.0/24\ADiscovered open port 22/tcp on 10.0.0.12\ADiscovered open port 443/tcp on 10.0.0.21\Aroot@aayush:~$ sudo ufw status\AStatus: active\Aroot@aayush:~$ journalctl -p 3 -xn\Akernel: audit: DENIED exec /usr/bin/unknown\Aroot@aayush:~$ cat /etc/hosts\A127.0.0.1 localhost\A10.0.0.21 core-gateway\Aroot@aayush:~$ ls -la /opt/defense\Adrwxr-xr-x 8 root root 4096 Feb 05 19:10 monitors\Aroot@aayush:~$ ./deploy.sh --harden\A[+] Applying CIS baseline...\A[+] Rotating credentials...\A[+] Endpoint telemetry online\Aroot@aayush:~$\Asession: secure | status: green\A\Aroot@aayush:~$ init security-modules\Aloading: kernel hooks [ok]\Aloading: blue-team sensor [ok]\Aroot@aayush:~$ tail -f /var/log/auth.log\Asshd[1023]: Accepted publickey for blue from 10.0.0.5\Asshd[1024]: Failed password for invalid user admin from 10.0.0.9\Aroot@aayush:~$ nmap -sV 10.0.0.0/24\ADiscovered open port 22/tcp on 10.0.0.12\ADiscovered open port 443/tcp on 10.0.0.21\Aroot@aayush:~$ sudo ufw status\AStatus: active\Aroot@aayush:~$ journalctl -p 3 -xn\Akernel: audit: DENIED exec /usr/bin/unknown\Aroot@aayush:~$ cat /etc/hosts\A127.0.0.1 localhost\A10.0.0.21 core-gateway\Aroot@aayush:~$ ls -la /opt/defense\Adrwxr-xr-x 8 root root 4096 Feb 05 19:10 monitors\Aroot@aayush:~$ ./deploy.sh --harden\A[+] Applying CIS baseline...\A[+] Rotating credentials...\A[+] Endpoint telemetry online\Aroot@aayush:~$\Asession: secure | status: green";
+  position: fixed;
+  inset: -40% -10%;
+  font-family: "Share Tech Mono", monospace;
+  font-size: 12px;
+  line-height: 1.7;
+  letter-spacing: 0.6px;
+  color: rgba(0, 255, 154, 0.18);
+  opacity: 0.35;
+  text-shadow: 0 0 12px rgba(0, 255, 154, 0.25);
+  white-space: pre;
+  pointer-events: none;
+  z-index: 0;
+  animation: terminal-scroll 52s linear infinite;
+}
+
 ::selection {
   background: rgba(0, 255, 154, 0.25);
   color: var(--text);
@@ -89,6 +106,15 @@ a {
   }
   100% {
     transform: translateY(100%);
+  }
+}
+
+@keyframes terminal-scroll {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-40%);
   }
 }
 
@@ -836,6 +862,79 @@ a {
   border: none;
 }
 
+.badge-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 18px;
+}
+
+.badge-item {
+  display: grid;
+  grid-template-columns: 72px 1fr;
+  gap: 16px;
+  padding: 16px 18px;
+  border-radius: 18px;
+  border: 1px solid rgba(0, 198, 255, 0.2);
+  background: linear-gradient(135deg, rgba(6, 15, 20, 0.9), rgba(3, 9, 12, 0.85));
+  box-shadow: 0 0 18px rgba(0, 198, 255, 0.12);
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.badge-icon {
+  width: 72px;
+  height: 72px;
+  border-radius: 16px;
+  display: grid;
+  place-items: center;
+  background: rgba(6, 11, 10, 0.6);
+  border: 1px solid rgba(0, 255, 154, 0.2);
+  box-shadow: inset 0 0 12px rgba(0, 255, 154, 0.08);
+}
+
+.badge-icon img {
+  width: 64px;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 0 10px rgba(0, 255, 154, 0.18));
+}
+
+.badge-details {
+  display: grid;
+  gap: 6px;
+  align-content: start;
+}
+
+.badge-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.badge-desc {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.badge-tag {
+  justify-self: start;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(0, 198, 255, 0.3);
+  background: rgba(0, 198, 255, 0.12);
+  color: var(--neon-blue);
+  font-family: "Share Tech Mono", monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.badge-item:hover {
+  transform: translateY(-2px);
+  border-color: rgba(0, 198, 255, 0.6);
+  box-shadow: 0 0 18px rgba(0, 198, 255, 0.2);
+}
+
 .projects-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -1137,5 +1236,9 @@ a {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+
+  body::before {
+    animation: none !important;
   }
 }

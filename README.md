@@ -34,7 +34,6 @@ portfolio/
 ├ styles.css
 ├ script.js
 ├ assets/
-├ cv.pdf
 └ README.md
 ```
 
@@ -43,7 +42,7 @@ Open `index.html` in any modern browser.
 
 ## Customize
 - Update social links in `index.html`, `about.html`, and `contact.html`.
-- Replace `cv.pdf` with your latest resume.
+- Update your resume file inside `assets/`.
 - Edit terminal output in `script.js`.
 - Replace project repository links in `projects.html`.
 
