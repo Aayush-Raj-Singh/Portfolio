@@ -81,7 +81,7 @@ function renderWhoAmI() {
       <div class="output-title">Identity</div>
       <div>Aayush Raj ();</div>
       <div>Cyber Security Engineer</div>
-      <div>Location: India</div>
+      <div>Location: Bihar, India</div>
       <div>Focus: Blue Team, Security Automation, Ethical Hacking</div>
     </div>
   `);
