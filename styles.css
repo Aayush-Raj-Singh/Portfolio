@@ -693,6 +693,21 @@ a {
   color: var(--text);
 }
 
+.panel-list li,
+.project-list li {
+  position: relative;
+  padding-left: 18px;
+}
+
+.panel-list li::before,
+.project-list li::before {
+  content: "»";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--neon-blue);
+}
+
 .project {
   display: grid;
   gap: 10px;
@@ -734,11 +749,11 @@ a {
 
 .project-list {
   margin: 0;
-  padding-left: 22px;
+  padding-left: 0;
   display: grid;
   gap: 8px;
   color: var(--text);
-  list-style: disc;
+  list-style: none;
 }
 
 .skill-grid {
