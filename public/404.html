@@ -1,0 +1,18 @@
+﻿<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Redirecting...</title>
+    <script type="text/javascript">
+      const segmentCount = 1;
+      const location = window.location;
+      const path = location.pathname.split("/");
+      const base = path.slice(0, segmentCount + 1).join("/");
+      const rest = path.slice(segmentCount + 1).join("/");
+      const redirect = `${base}/?/${rest}${location.search}${location.hash}`;
+      window.location.replace(redirect);
+    </script>
+  </head>
+  <body></body>
+</html>

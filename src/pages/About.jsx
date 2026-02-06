@@ -1,0 +1,274 @@
+﻿import RadarChart from "../components/RadarChart";
+
+function About() {
+  return (
+    <main className="page min-h-screen" id="main">
+      <section className="page-hero">
+        <p className="eyebrow">// About</p>
+        <h1 className="page-title glitch" data-text="About Aayush Raj">
+          About Aayush Raj
+        </h1>
+        <h2 className="page-subtitle">Cyber Security Engineer | Blue Team + Security Automation</h2>
+        <p className="page-intro">
+          I am a final-year B.Tech CSE Cyber Security student building a career in defensive security. My work blends
+          practical blue team operations with automation and ethical hacking to deliver resilient, measurable security
+          outcomes.
+        </p>
+      </section>
+
+      <section className="info-grid">
+        <article className="panel">
+          <div className="panel-title">Background</div>
+          <p>
+            My focus is on detecting, analyzing, and responding to threats across endpoints and networks. I enjoy
+            designing workflows that connect telemetry, alerts, and response actions into clean, actionable playbooks.
+          </p>
+        </article>
+        <article className="panel">
+          <div className="panel-title">Career Focus</div>
+          <ul className="panel-list">
+            <li>Blue team monitoring and incident response</li>
+            <li>Security automation for faster triage</li>
+            <li>Threat intelligence and proactive hunting</li>
+            <li>Ethical hacking with safe test environments</li>
+          </ul>
+        </article>
+        <article className="panel">
+          <div className="panel-title">Education</div>
+          <ul className="panel-list">
+            <li>B.Tech CSE Cyber Security (Final Year)</li>
+            <li>Location: Bihar, India</li>
+            <li>Continuous learning with labs and security platforms</li>
+          </ul>
+        </article>
+      </section>
+
+      <section className="panel">
+        <div className="panel-title">Skills Breakdown</div>
+        <div className="skill-grid">
+          <article className="skill-card">
+            <h3>Blue Team</h3>
+            <ul className="skill-list">
+              <li>Threat detection and triage</li>
+              <li>SIEM monitoring and alert tuning</li>
+              <li>Incident response workflows</li>
+              <li>Log analysis and correlation</li>
+            </ul>
+          </article>
+          <article className="skill-card">
+            <h3>Vulnerability</h3>
+            <ul className="skill-list">
+              <li>Windows hardening baselines</li>
+              <li>Risk scoring and remediation</li>
+              <li>Patch validation checks</li>
+              <li>Asset exposure analysis</li>
+            </ul>
+          </article>
+          <article className="skill-card">
+            <h3>Automation</h3>
+            <ul className="skill-list">
+              <li>PowerShell and Python scripting</li>
+              <li>Automated reporting pipelines</li>
+              <li>Security task orchestration</li>
+              <li>Lightweight API integrations</li>
+            </ul>
+          </article>
+          <article className="skill-card">
+            <h3>Ethical Hacking</h3>
+            <ul className="skill-list">
+              <li>Web application testing</li>
+              <li>Recon and enumeration</li>
+              <li>OWASP and MITRE mapping</li>
+              <li>Safe lab simulations</li>
+            </ul>
+          </article>
+          <article className="skill-card">
+            <h3>Tooling</h3>
+            <ul className="skill-list">
+              <li>Windows event logs</li>
+              <li>Network security tooling</li>
+              <li>Threat intel dashboards</li>
+              <li>Git-based collaboration</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section className="panel">
+        <div className="panel-title">Cyber Security Skill Matrix</div>
+        <div className="radar-wrapper">
+          <div className="radar-content">
+            <h3 className="radar-heading">Entry Level Foundational</h3>
+            <p className="radar-copy">
+              Entry level foundational view of my cyber security capabilities, mapping core domains across operations,
+              response, malware analysis, testing, exploitation, and red teaming. The radar reflects hands-on lab
+              progress and current learning priorities.
+            </p>
+            <div className="radar-scale">
+              <span>Beginner</span>
+              <span>Intermediate</span>
+              <span>Advanced</span>
+            </div>
+          </div>
+          <div
+            className="radar-chart"
+            aria-label="Radar chart showing TryHackMe skill distribution"
+            role="img"
+          >
+            <RadarChart
+              labels={[
+                "Security Operations",
+                "Incident Response",
+                "Malware Analysis",
+                "Penetration Testing",
+                "Exploitation",
+                "Red Teaming",
+              ]}
+              values={[45, 42, 44, 25, 13, 40]}
+            />
+          </div>
+        </div>
+      </section>
+
+      <section className="panel">
+        <div className="panel-title">What I Build</div>
+
+        <div className="project">
+          <div className="project-header">
+            <h3 className="project-title">Agent-less Windows System Vulnerability Scanner</h3>
+            <span className="project-year">2026</span>
+          </div>
+          <div className="project-meta">Python, Network Analysis, CVE Database</div>
+          <ul className="project-list">
+            <li>
+              Designed and engineered an agent-less Windows weakness detector assessing OS, services, and network
+              subsystems without endpoint installation
+            </li>
+            <li>Automated CVE-based flaw discovery and exploit availability correlation across 50+ system components</li>
+            <li>
+              Generated comprehensive reports with risk scoring, remediation guidance, and compliance alignment,
+              reducing manual assessment effort by ~60%
+            </li>
+          </ul>
+        </div>
+
+        <div className="project">
+          <div className="project-header">
+            <h3 className="project-title">Cyber Threat Intelligence AI System</h3>
+            <span className="project-year">2025</span>
+          </div>
+          <div className="project-meta">Machine Learning, Web Scraping, Threat Intel</div>
+          <ul className="project-list">
+            <li>
+              Built an ML-powered threat intelligence platform focused on Indian cyberspace with near real-time cyber
+              incident tracking
+            </li>
+          <li>
+              Established real-time data aggregation pipelines scraping web forums, paste sites, and social platforms,
+              processing 200+ threat indicators
+          </li>
+            <li>
+              Architected a threat correlation engine delivering actionable intelligence for Critical Information
+              Infrastructure (CII) protection
+            </li>
+          </ul>
+        </div>
+
+        <div className="project">
+          <div className="project-header">
+            <h3 className="project-title">Cryptographic Algorithm Identifier</h3>
+            <span className="project-year">2025</span>
+          </div>
+          <div className="project-meta">AI/ML, Cryptanalysis, Pattern Recognition</div>
+          <ul className="project-list">
+            <li>Created a machine learning classifier to identify modern cryptographic algorithms from encrypted datasets</li>
+            <li>
+              Leveraged statistical feature extraction and pattern recognition techniques to achieve high classification
+              accuracy across multiple encryption methods
+            </li>
+          </ul>
+        </div>
+
+        <div className="project">
+          <div className="project-header">
+            <h3 className="project-title">OEM Vulnerability Monitoring Tool</h3>
+            <span className="project-year">2024</span>
+          </div>
+          <div className="project-meta">Web Scraping, Security Advisory Automation</div>
+          <ul className="project-list">
+            <li>
+              Built an automated patch tracking system monitoring security advisories across 10+ OEM portals for IT and
+              OT equipment
+            </li>
+            <li>
+              Deployed real-time alerting for critical and high-severity exposures, reducing threat awareness latency by
+              ~70%
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section className="panel">
+        <div className="panel-title">Social Presence</div>
+        <div className="social-icons" aria-label="Social profiles">
+          <a
+            className="social-icon tryhackme"
+            href="https://tryhackme.com/p/Abhayaprabha"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="TryHackMe"
+          >
+            <img src="https://assets.tryhackme.com/img/logo/tryhackme_logo_full.svg" alt="TryHackMe" />
+          </a>
+          <a
+            className="social-icon github"
+            href="https://github.com/Aayush-Raj-Singh"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="GitHub"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.38.6.11.82-.26.82-.58 0-.29-.01-1.04-.02-2.04-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.09-.75.08-.74.08-.74 1.2.08 1.84 1.23 1.84 1.23 1.07 1.83 2.8 1.3 3.49.99.11-.78.42-1.3.76-1.6-2.67-.3-5.47-1.34-5.47-5.96 0-1.32.47-2.4 1.24-3.25-.13-.3-.54-1.52.12-3.16 0 0 1.01-.32 3.3 1.24a11.5 11.5 0 0 1 6 0c2.28-1.56 3.29-1.24 3.29-1.24.66 1.64.25 2.86.12 3.16.77.85 1.23 1.93 1.23 3.25 0 4.63-2.8 5.65-5.48 5.95.43.37.81 1.1.81 2.22 0 1.6-.02 2.88-.02 3.27 0 .32.22.69.83.57C20.56 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z" />
+            </svg>
+          </a>
+          <a
+            className="social-icon linkedin"
+            href="https://www.linkedin.com/in/aayush-raj-77a1bb237"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="LinkedIn"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M22.225 0H1.771C.792 0 0 .774 0 1.727v20.545C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.273V1.727C24 .774 23.2 0 22.222 0zM5.337 7.433a2.062 2.062 0 1 1 0-4.123 2.062 2.062 0 0 1 0 4.123zM6.813 20.452H3.861V9h2.952v11.452zM20.447 20.452h-3.554v-5.569c0-1.328-.027-3.038-1.852-3.038-1.853 0-2.136 1.445-2.136 2.939v5.668H9.35V9h3.414v1.561h.046c.477-.9 1.636-1.85 3.367-1.85 3.598 0 4.262 2.368 4.262 5.455v6.286z" />
+            </svg>
+          </a>
+          <a
+            className="social-icon instagram"
+            href="https://www.instagram.com/abhayaprabha/"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="Instagram"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M7.5 2h9A5.5 5.5 0 0 1 22 7.5v9A5.5 5.5 0 0 1 16.5 22h-9A5.5 5.5 0 0 1 2 16.5v-9A5.5 5.5 0 0 1 7.5 2zm0 2A3.5 3.5 0 0 0 4 7.5v9A3.5 3.5 0 0 0 7.5 20h9A3.5 3.5 0 0 0 20 16.5v-9A3.5 3.5 0 0 0 16.5 4h-9zm9.75 2.5a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5zM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6z" />
+            </svg>
+          </a>
+          <a
+            className="social-icon twitter"
+            href="https://twitter.com/AayushR19149133"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="X / Twitter"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M18.244 2H21.52l-7.248 8.292L22.5 22h-6.5l-5.1-6.596L5.2 22H1.9l7.75-8.86L1.5 2h6.6l4.6 6.034L18.244 2z" />
+            </svg>
+          </a>
+        </div>
+      </section>
+    </main>
+  );
+}
+
+export default About;
+
