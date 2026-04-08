@@ -1,22 +1,30 @@
-﻿import { Routes, Route } from "react-router-dom";
-import Layout from "./components/Layout";
-import Home from "./pages/Home";
-import About from "./pages/About";
-import Projects from "./pages/Projects";
-import Certifications from "./pages/Certifications";
-import Contact from "./pages/Contact";
+import SiteHeader from "./components/SiteHeader";
+import SiteFooter from "./components/SiteFooter";
+import HeroSection from "./sections/HeroSection";
+import AboutSection from "./sections/AboutSection";
+import SkillsSection from "./sections/SkillsSection";
+import ProjectsSection from "./sections/ProjectsSection";
+import SocialProofSection from "./sections/SocialProofSection";
+import CyberLabsSection from "./sections/CyberLabsSection";
+import ExperienceSection from "./sections/ExperienceSection";
+import ContactSection from "./sections/ContactSection";
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Layout />}>
-        <Route index element={<Home />} />
-        <Route path="about" element={<About />} />
-        <Route path="projects" element={<Projects />} />
-        <Route path="certifications" element={<Certifications />} />
-        <Route path="contact" element={<Contact />} />
-      </Route>
-    </Routes>
+    <>
+      <SiteHeader />
+      <main id="main">
+        <HeroSection />
+        <AboutSection />
+        <SkillsSection />
+        <ProjectsSection />
+        <SocialProofSection />
+        <CyberLabsSection />
+        <ExperienceSection />
+        <ContactSection />
+      </main>
+      <SiteFooter />
+    </>
   );
 }
 
