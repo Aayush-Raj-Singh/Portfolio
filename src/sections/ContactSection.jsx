@@ -70,8 +70,8 @@ function ContactSection() {
     setStatus("sending");
 
     try {
-      // Formspree integration — works without any backend
-      const response = await fetch("https://formspree.io/f/xpwdqvkz", {
+      // FormSubmit integration — sends directly to your email without any backend
+      const response = await fetch("https://formsubmit.co/ajax/aayush15raj0@gmail.com", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -83,6 +83,7 @@ function ContactSection() {
           subject: formData.subject,
           message: formData.message,
           _subject: `Portfolio Contact: ${formData.subject}`,
+          _template: "box", // Beautiful email template
         }),
       });
 

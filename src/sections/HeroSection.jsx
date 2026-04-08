@@ -154,10 +154,11 @@ function HeroSection() {
             <a
               className="cta-outline"
               href={`${baseUrl}assets/Aayush_Raj_Cybersecurity_Resume.pdf`}
-              download
+              target="_blank"
+              rel="noopener noreferrer"
             >
               <FiDownload size={18} />
-              <span>Resume</span>
+              <span>View Resume</span>
             </a>
           </div>
 

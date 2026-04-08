@@ -76,8 +76,9 @@ function SiteHeader() {
             <a
               className="resume-btn"
               href={`${baseUrl}assets/Aayush_Raj_Cybersecurity_Resume.pdf`}
-              download
-              aria-label="Download resume"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="View and download resume"
             >
               <FiDownload size={16} />
               <span>Resume</span>
@@ -133,10 +134,11 @@ function SiteHeader() {
             <a
               className="resume-btn mobile-resume"
               href={`${baseUrl}assets/Aayush_Raj_Cybersecurity_Resume.pdf`}
-              download
+              target="_blank"
+              rel="noopener noreferrer"
             >
               <FiDownload size={16} />
-              <span>Download Resume</span>
+              <span>View Resume</span>
             </a>
           </div>
         </nav>
