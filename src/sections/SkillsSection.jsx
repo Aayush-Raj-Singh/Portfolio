@@ -139,7 +139,6 @@ function SkillsSection() {
         </ScrollReveal>
       </div>
 
-      {/* Radar Chart */}
       <ScrollReveal className="radar-section">
         <div className="radar-wrapper">
           <div className="radar-info">

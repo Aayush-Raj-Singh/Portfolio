@@ -1,5 +1,7 @@
 import { motion } from "framer-motion";
 
+const MotionSpan = motion.span;
+
 const tierLevels = {
   proficient: { dots: 5, label: "Proficient", color: "var(--accent-primary)" },
   intermediate: { dots: 3, label: "Intermediate", color: "var(--accent-orange)" },
@@ -21,7 +23,7 @@ function SkillBar({ name, tier = "intermediate", icon }) {
       </div>
       <div className="skill-tier-dots">
         {Array.from({ length: totalDots }, (_, i) => (
-          <motion.span
+          <MotionSpan
             key={i}
             className={`tier-dot ${i < config.dots ? "tier-dot-filled" : ""}`}
             style={i < config.dots ? { background: config.color, boxShadow: `0 0 8px ${config.color}` } : {}}

@@ -63,7 +63,7 @@ function SiteFooter() {
             <span className="logo-text-accent">();</span>
           </button>
           <p className="footer-tagline">
-            Cyber Security Engineer — Building resilient systems and actionable
+            Cyber Security Engineer - Building resilient systems and actionable
             intelligence for modern threat landscapes.
           </p>
           <div className="footer-status">
@@ -106,7 +106,7 @@ function SiteFooter() {
 
       <div className="footer-bottom">
         <p>
-          © {new Date().getFullYear()} Aayush Raj. Crafted with{" "}
+          (c) {new Date().getFullYear()} Aayush Raj. Crafted with{" "}
           <FiHeart size={14} className="inline-heart" /> in Bihar, India.
         </p>
         <button

@@ -1,20 +1,29 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { FiGithub, FiExternalLink, FiChevronDown, FiTarget, FiTool, FiTrendingUp } from "react-icons/fi";
+import {
+  FiGithub,
+  FiExternalLink,
+  FiChevronDown,
+  FiTarget,
+  FiTool,
+  FiTrendingUp,
+} from "react-icons/fi";
+
+const MotionArticle = motion.article;
+const MotionDiv = motion.div;
 
 function ProjectCard({ project, index = 0 }) {
   const [expanded, setExpanded] = useState(false);
   const baseUrl = import.meta.env.BASE_URL || "/";
 
   return (
-    <motion.article
+    <MotionArticle
       className="project-card"
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
     >
-      {/* Project Screenshot */}
       {project.image && (
         <div className="project-card-image">
           <img
@@ -28,9 +37,13 @@ function ProjectCard({ project, index = 0 }) {
 
       <div className="project-card-content">
         <div className="project-card-header">
-          <div className="project-card-icon">
-            <FiGithub size={24} />
+          <div className="project-card-heading">
+            {project.badge && (
+              <span className="project-card-badge">{project.badge}</span>
+            )}
+            <h3 className="project-card-title">{project.title}</h3>
           </div>
+
           <div className="project-card-links">
             {project.github && (
               <a
@@ -40,7 +53,8 @@ function ProjectCard({ project, index = 0 }) {
                 aria-label={`${project.title} GitHub repository`}
                 className="project-link"
               >
-                <FiGithub size={20} />
+                <FiGithub size={16} />
+                <span>GitHub</span>
               </a>
             )}
             {project.live && (
@@ -51,19 +65,26 @@ function ProjectCard({ project, index = 0 }) {
                 aria-label={`${project.title} live demo`}
                 className="project-link"
               >
-                <FiExternalLink size={20} />
+                <FiExternalLink size={16} />
+                <span>Live Demo</span>
               </a>
             )}
           </div>
         </div>
 
-        <h3 className="project-card-title">{project.title}</h3>
         <p className="project-card-desc">{project.description}</p>
 
-        {/* PAR Case Study - Expandable */}
+        {project.impact && (
+          <div className="project-impact-strip">
+            <span className="project-impact-label">Impact</span>
+            <p className="project-impact-copy">{project.impact}</p>
+          </div>
+        )}
+
         <button
+          type="button"
           className={`case-study-toggle ${expanded ? "case-study-open" : ""}`}
-          onClick={() => setExpanded(!expanded)}
+          onClick={() => setExpanded((open) => !open)}
         >
           <span>View Case Study</span>
           <FiChevronDown size={16} />
@@ -71,7 +92,7 @@ function ProjectCard({ project, index = 0 }) {
 
         <AnimatePresence>
           {expanded && (
-            <motion.div
+            <MotionDiv
               className="case-study-panel"
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: "auto", opacity: 1 }}
@@ -113,7 +134,7 @@ function ProjectCard({ project, index = 0 }) {
                   </div>
                 )}
               </div>
-            </motion.div>
+            </MotionDiv>
           )}
         </AnimatePresence>
 
@@ -125,7 +146,7 @@ function ProjectCard({ project, index = 0 }) {
           ))}
         </div>
       </div>
-    </motion.article>
+    </MotionArticle>
   );
 }
 

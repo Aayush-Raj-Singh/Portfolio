@@ -1,3 +1,4 @@
+import { useMemo, useState } from "react";
 import SectionHeading from "../components/SectionHeading";
 import ProjectCard from "../components/ProjectCard";
 import GitHubStats from "../components/GitHubStats";
@@ -6,103 +7,167 @@ import ScrollReveal from "../components/ScrollReveal";
 const projects = [
   {
     title: "KrishiMitra AI",
+    category: "Applied AI",
+    badge: "Applied AI",
     description:
-      "A FastAPI + React Native AI agriculture platform using AWS Bedrock for intelligent crop recommendations.",
+      "A FastAPI and React Native agriculture platform using AWS Bedrock for localized crop recommendations.",
     image: "assets/project-krishimitra.png",
+    impact:
+      "Brings mobile, backend, and AI-assisted crop guidance into one usable workflow.",
     problem:
-      "Farmers lacked localized, data-driven agricultural guidance, relying on generalized advice disconnected from real-time environmental data.",
+      "Farmers often rely on generic advice that does not reflect local conditions or recent field data.",
     action:
-      "Built a full-stack AI platform integrating a FastAPI backend, PostgreSQL, and AWS Bedrock to process soil data and generate localized AI farming recommendations.",
+      "Built a full-stack platform with FastAPI, PostgreSQL, and AWS Bedrock to process inputs and return localized recommendations.",
     result:
-      "Deployed a scalable microservices architecture enabling near real-time intelligent crop insights across web and mobile platforms securely.",
+      "Delivered a usable AI workflow for crop guidance across web and mobile surfaces.",
     tags: ["React Native", "FastAPI", "AWS Bedrock", "PostgreSQL"],
     github: "https://github.com/Aayush-Raj-Singh/KRISHI-MITRA-AI",
-    live: null
+    live: null,
   },
   {
     title: "Crime Hotspot Mapping Tool",
+    category: "Analytics",
+    badge: "Analytics",
     description:
-      "GIS and data visualization dashboard to predict and map critical urban crime hotspots based on incident density.",
+      "GIS-based incident mapping tool for spotting urban crime hotspots from historical records.",
     image: "assets/project-crime-hotspot.png",
+    impact:
+      "Turns raw incident records into a map-first view for faster prioritization.",
     problem:
-      "Law enforcement struggled to allocate patrol resources effectively without spatial visualization of historical incident frequency.",
+      "Without spatial visualization, it is harder to see where incidents cluster and where response effort should go first.",
     action:
-      "Engineered a geospatial mapping tool using Python data science libraries to aggregate incident schemas and render dense predictive heatmaps of city sectors.",
+      "Used Python data workflows and GIS mapping to process incidents and render hotspot visualizations.",
     result:
-      "Provided a visual intelligence dashboard that accelerates risk assessment and streamlines rapid response resource allocation for security teams.",
+      "Made dense crime data easier to interpret during planning and operational review.",
     tags: ["Data Analytics", "GIS Mapping", "Python", "Predictive Intel"],
     github: "https://github.com/Aayush-Raj-Singh/Crime-Hotspot-Mapping-Tool",
-    live: null
+    live: null,
   },
   {
     title: "Agent-less Windows System Vulnerability Scanner",
+    category: "Security Automation",
+    badge: "Security Automation",
     description:
-      "Agent-less Windows weakness detector assessing OS, services, and network subsystems without endpoint installation.",
+      "Agent-less Windows scanner that checks OS, services, and network exposure without endpoint installation.",
     image: "assets/project-vuln-scanner.png",
+    impact:
+      "Cuts endpoint assessment time by about 60% while keeping findings report-ready.",
     problem:
-      "Manual vulnerability assessment across Windows endpoints took 3+ hours per system with high false positive rates and no standardized reporting.",
+      "Manual Windows assessments are slow, inconsistent, and difficult to scale across many endpoints.",
     action:
-      "Built an agent-less Python scanner that remotely correlates live system state against CVE databases, mapping 50+ components automatically without requiring agent installation on endpoints.",
+      "Built a Python scanner that correlates live system data with CVE references and generates structured findings.",
     result:
-      "Reduced assessment time by ~60%, eliminated false positives through exploit availability correlation, and generated compliance-aligned reports with risk scoring and remediation guidance.",
+      "Reduced repetitive assessment effort and improved the consistency of reporting.",
     tags: ["Python", "Network Analysis", "CVE Database", "Windows"],
-    github: "https://github.com/Aayush-Raj-Singh/AGENT-LESS-WINDOWS-SYSTEM-VULNERABILITY-SCANNER",
+    github:
+      "https://github.com/Aayush-Raj-Singh/AGENT-LESS-WINDOWS-SYSTEM-VULNERABILITY-SCANNER",
+    live: null,
   },
   {
     title: "Cyber Threat Intelligence AI System",
+    category: "Threat Intel",
+    badge: "Threat Intel",
     description:
-      "ML-powered threat intelligence platform for near real-time cyber incident tracking focused on Indian cyberspace.",
+      "Threat-intelligence pipeline for tracking cyber incidents and indicators with an India-focused lens.",
     image: "assets/project-threat-intel.png",
+    impact:
+      "Surfaces India-focused indicators faster than relying only on generic threat feeds.",
     problem:
-      "India's critical infrastructure lacked real-time, localized threat intelligence — existing tools focused on Western threat landscapes, missing regional indicators and attack patterns.",
+      "Regional threat context is often underrepresented in generic intelligence workflows.",
     action:
-      "Developed data aggregation pipelines scraping web forums, paste sites, and social platforms. Built an ML-powered correlation engine to classify and prioritize 200+ threat indicators for CII protection.",
+      "Built collection and classification pipelines across public sources, then prioritized indicators with ML-assisted processing.",
     result:
-      "Delivered actionable intelligence for Critical Information Infrastructure protection with near real-time alerting, significantly improving threat awareness for India-specific cyber incidents.",
+      "Produced a workflow for monitoring region-specific cyber activity in near real time.",
     tags: ["Machine Learning", "Web Scraping", "Threat Intel", "Pipelines"],
-    github: "https://github.com/Aayush-Raj-Singh/CYBER-THREAT-INTELLIGENCE-AI-SYSTEM",
+    github:
+      "https://github.com/Aayush-Raj-Singh/CYBER-THREAT-INTELLIGENCE-AI-SYSTEM",
+    live: null,
   },
   {
     title: "Cryptographic Algorithm Identifier",
+    category: "Applied AI",
+    badge: "Applied AI",
     description:
-      "ML classifier identifying modern cryptographic algorithms from encrypted datasets using statistical feature extraction.",
+      "Machine learning classifier for identifying likely cryptographic algorithms from encrypted data samples.",
     image: "assets/project-crypto-id.png",
+    impact:
+      "Helps forensic triage by narrowing the likely encryption family early.",
     problem:
-      "During forensic analysis, encrypted data samples often lack metadata about the encryption method used, making decryption and analysis extremely time-consuming.",
+      "Encrypted samples often arrive without useful metadata, which slows down forensic analysis.",
     action:
-      "Created a machine learning classifier leveraging statistical feature extraction and pattern recognition techniques to fingerprint encrypted data and identify the algorithm used (AES, RSA, DES, Blowfish, etc.).",
+      "Used statistical feature extraction and machine learning to classify likely algorithms from ciphertext characteristics.",
     result:
-      "Achieved high classification accuracy across multiple encryption methods, enabling faster forensic workflows by eliminating manual algorithm identification guesswork.",
+      "Improved early-stage analysis by reducing manual guesswork during algorithm identification.",
     tags: ["AI/ML", "Cryptanalysis", "Pattern Recognition", "Python"],
-    github: "https://github.com/Aayush-Raj-Singh/CRYPTOGRAPHIC-ALGORITHM-IDENTIFIER",
+    github:
+      "https://github.com/Aayush-Raj-Singh/CRYPTOGRAPHIC-ALGORITHM-IDENTIFIER",
+    live: null,
   },
   {
     title: "OEM Vulnerability Monitoring Tool",
+    category: "Security Automation",
+    badge: "Security Automation",
     description:
-      "Automated patch tracking system monitoring security advisories across 10+ OEM portals for IT and OT equipment.",
+      "Automated tracker for security advisories across OEM portals used in IT and OT environments.",
     image: "assets/project-oem-monitor.png",
+    impact:
+      "Reduces patch-monitoring lag by roughly 70% across monitored vendor sources.",
     problem:
-      "Security teams manually checked 10+ vendor advisory portals daily for new patches — a slow, error-prone process causing critical exposures to go unnoticed for days.",
+      "Manually checking many OEM advisory portals creates delay and increases the chance of missing critical updates.",
     action:
-      "Built an automated monitoring system that scrapes OEM security advisory portals, classifies severity levels, and deploys real-time alerting for critical and high-severity vulnerabilities.",
+      "Built an automation workflow to monitor vendor advisories, classify severity, and flag important updates quickly.",
     result:
-      "Reduced threat awareness latency by ~70% for critical/high-severity exposures, ensuring security teams receive immediate notification of new advisories across all monitored vendors.",
+      "Improved visibility into newly published advisories and reduced manual monitoring effort.",
     tags: ["Web Scraping", "Security Advisory", "Automation", "Alerting"],
-    github: "https://github.com/Aayush-Raj-Singh/OEM-VULNERABILITY-MONITORING-TOOL",
+    github:
+      "https://github.com/Aayush-Raj-Singh/OEM-VULNERABILITY-MONITORING-TOOL",
+    live: null,
   },
 ];
 
 function ProjectsSection() {
+  const [activeFilter, setActiveFilter] = useState("All");
+
+  const filters = useMemo(
+    () => ["All", ...new Set(projects.map((project) => project.category))],
+    []
+  );
+
+  const visibleProjects = useMemo(() => {
+    if (activeFilter === "All") {
+      return projects;
+    }
+
+    return projects.filter((project) => project.category === activeFilter);
+  }, [activeFilter]);
+
   return (
     <section className="projects-section" id="projects">
       <SectionHeading
         eyebrow="Portfolio"
         title="Featured Projects"
-        description="Software engineering logic combined with deep cyber defense integrations. Click 'View Case Study' for the Problem → Action → Result breakdown."
+        description="Security projects across automation, applied AI, analytics, and threat intelligence. Open each case study for the problem, build approach, and result."
       />
 
+      <div className="project-filter-bar" role="tablist" aria-label="Project filters">
+        {filters.map((filter) => (
+          <button
+            key={filter}
+            type="button"
+            className={`project-filter-btn ${
+              activeFilter === filter ? "project-filter-active" : ""
+            }`}
+            onClick={() => setActiveFilter(filter)}
+            role="tab"
+            aria-selected={activeFilter === filter}
+          >
+            {filter}
+          </button>
+        ))}
+      </div>
+
       <div className="projects-grid">
-        {projects.map((project, i) => (
+        {visibleProjects.map((project, i) => (
           <ProjectCard key={project.title} project={project} index={i} />
         ))}
       </div>

@@ -1,0 +1,198 @@
+[
+  {
+    "category": "core-security",
+    "slug": "intro-to-cybersecurity",
+    "source": "CyberSecurity/Introduction to Cybersecurity.pdf",
+    "pdf": "assets/certificates/intro-to-cybersecurity.pdf",
+    "thumb": "assets/certificates/intro-to-cybersecurity.png"
+  },
+  {
+    "category": "core-security",
+    "slug": "cybersecurity-essentials",
+    "source": "CyberSecurity/Cybersecurity_Essentials.pdf",
+    "pdf": "assets/certificates/cybersecurity-essentials.pdf",
+    "thumb": "assets/certificates/cybersecurity-essentials.png"
+  },
+  {
+    "category": "core-security",
+    "slug": "ethical-hacker-cisco",
+    "source": "CyberSecurity/Ethical Hacker.pdf",
+    "pdf": "assets/certificates/ethical-hacker-cisco.pdf",
+    "thumb": "assets/certificates/ethical-hacker-cisco.png"
+  },
+  {
+    "category": "core-security",
+    "slug": "ethical-hacking-nptel",
+    "source": "CyberSecurity/Ethical Hacking.pdf",
+    "pdf": "assets/certificates/ethical-hacking-nptel.pdf",
+    "thumb": "assets/certificates/ethical-hacking-nptel.png"
+  },
+  {
+    "category": "core-security",
+    "slug": "cisco-cybersecurity-internship",
+    "source": "CyberSecurity/CyberSecurityVirtual Internship.pdf",
+    "pdf": "assets/certificates/cisco-cybersecurity-internship.pdf",
+    "thumb": "assets/certificates/cisco-cybersecurity-internship.png"
+  },
+  {
+    "category": "core-security",
+    "slug": "pregrad-cyber-security-associate",
+    "source": "CyberSecurity/Pregard Cyber Security.pdf",
+    "pdf": "assets/certificates/pregrad-cyber-security-associate.pdf",
+    "thumb": "assets/certificates/pregrad-cyber-security-associate.png"
+  },
+  {
+    "category": "core-security",
+    "slug": "tech-mahindra-cybersecurity",
+    "source": "CyberSecurity/cyber_security by tech mahindra.pdf",
+    "pdf": "assets/certificates/tech-mahindra-cybersecurity.pdf",
+    "thumb": "assets/certificates/tech-mahindra-cybersecurity.png"
+  },
+  {
+    "category": "core-security",
+    "slug": "advance-ethical-hacking-bootcamp",
+    "source": "CyberSecurity/Advance Ethical Hacking Bootcamp Certificate.pdf",
+    "pdf": "assets/certificates/advance-ethical-hacking-bootcamp.pdf",
+    "thumb": "assets/certificates/advance-ethical-hacking-bootcamp.png"
+  },
+  {
+    "category": "core-security",
+    "slug": "blockchain-and-its-applications",
+    "source": "CyberSecurity/Blockchain and its Applications.pdf",
+    "pdf": "assets/certificates/blockchain-and-its-applications.pdf",
+    "thumb": "assets/certificates/blockchain-and-its-applications.png"
+  },
+  {
+    "category": "networking",
+    "slug": "networking-essentials",
+    "source": "CyberSecurity/Networking_Essentials.pdf",
+    "pdf": "assets/certificates/networking-essentials.pdf",
+    "thumb": "assets/certificates/networking-essentials.png"
+  },
+  {
+    "category": "networking",
+    "slug": "packet-tracer",
+    "source": "CyberSecurity/Introduction_to_Packet_Tracer.pdf",
+    "pdf": "assets/certificates/packet-tracer.pdf",
+    "thumb": "assets/certificates/packet-tracer.png"
+  },
+  {
+    "category": "networking",
+    "slug": "computer-hardware-basics",
+    "source": "CyberSecurity/Computer_Hardware_Basics.pdf",
+    "pdf": "assets/certificates/computer-hardware-basics.pdf",
+    "thumb": "assets/certificates/computer-hardware-basics.png"
+  },
+  {
+    "category": "networking",
+    "slug": "ccna-introduction-to-networks",
+    "source": "CyberSecurity/CCNA1.pdf",
+    "pdf": "assets/certificates/ccna-introduction-to-networks.pdf",
+    "thumb": "assets/certificates/ccna-introduction-to-networks.png"
+  },
+  {
+    "category": "networking",
+    "slug": "ccna-srwe",
+    "source": "CyberSecurity/CCNA2.pdf",
+    "pdf": "assets/certificates/ccna-srwe.pdf",
+    "thumb": "assets/certificates/ccna-srwe.png"
+  },
+  {
+    "category": "networking",
+    "slug": "ccna-ensa",
+    "source": "CyberSecurity/CCNA3.pdf",
+    "pdf": "assets/certificates/ccna-ensa.pdf",
+    "thumb": "assets/certificates/ccna-ensa.png"
+  },
+  {
+    "category": "job-simulations",
+    "slug": "tata-cybersecurity-analyst",
+    "source": "CyberSecurity/TATA CYBERSECURITY ANALYST.pdf",
+    "pdf": "assets/certificates/tata-cybersecurity-analyst.pdf",
+    "thumb": "assets/certificates/tata-cybersecurity-analyst.png"
+  },
+  {
+    "category": "job-simulations",
+    "slug": "mastercard-cybersecurity-job-simulation",
+    "source": "CyberSecurity/MASTERCARD Cyber Security Job.pdf",
+    "pdf": "assets/certificates/mastercard-cybersecurity-job-simulation.pdf",
+    "thumb": "assets/certificates/mastercard-cybersecurity-job-simulation.png"
+  },
+  {
+    "category": "job-simulations",
+    "slug": "anz-cyber-security-management",
+    "source": "CyberSecurity/ANZ CybeR Security Management.pdf",
+    "pdf": "assets/certificates/anz-cyber-security-management.pdf",
+    "thumb": "assets/certificates/anz-cyber-security-management.png"
+  },
+  {
+    "category": "automation-coding",
+    "slug": "pcap-programming-essentials-in-python",
+    "source": "Programming/Programming Essentials in Python.pdf",
+    "pdf": "assets/certificates/pcap-programming-essentials-in-python.pdf",
+    "thumb": "assets/certificates/pcap-programming-essentials-in-python.png"
+  },
+  {
+    "category": "automation-coding",
+    "slug": "python-essentials-1",
+    "source": "Programming/Python essential 1.pdf",
+    "pdf": "assets/certificates/python-essentials-1.pdf",
+    "thumb": "assets/certificates/python-essentials-1.png"
+  },
+  {
+    "category": "automation-coding",
+    "slug": "python-essentials-2",
+    "source": "Programming/Python_Essentials_2.pdf",
+    "pdf": "assets/certificates/python-essentials-2.pdf",
+    "thumb": "assets/certificates/python-essentials-2.png"
+  },
+  {
+    "category": "automation-coding",
+    "slug": "javascript-essentials-1",
+    "source": "Programming/JavaScript Essentials 1.pdf",
+    "pdf": "assets/certificates/javascript-essentials-1.pdf",
+    "thumb": "assets/certificates/javascript-essentials-1.png"
+  },
+  {
+    "category": "automation-coding",
+    "slug": "c-training",
+    "source": "Programming/C-Participant-Certificate.pdf",
+    "pdf": "assets/certificates/c-training.pdf",
+    "thumb": "assets/certificates/c-training.png"
+  },
+  {
+    "category": "automation-coding",
+    "slug": "cpp-training",
+    "source": "Programming/CPP-Participant-Certificate.pdf",
+    "pdf": "assets/certificates/cpp-training.pdf",
+    "thumb": "assets/certificates/cpp-training.png"
+  },
+  {
+    "category": "automation-coding",
+    "slug": "html-training",
+    "source": "Programming/HTML-FINAL-Participant-Certificate.pdf",
+    "pdf": "assets/certificates/html-training.pdf",
+    "thumb": "assets/certificates/html-training.png"
+  },
+  {
+    "category": "automation-coding",
+    "slug": "foundations-of-ai",
+    "source": "Programming/Ms.pdf",
+    "pdf": "assets/certificates/foundations-of-ai.pdf",
+    "thumb": "assets/certificates/foundations-of-ai.png"
+  },
+  {
+    "category": "workshops",
+    "slug": "digital-defenders-ctf-webinar",
+    "source": "CyberSecurity/Digital Defenders CTF 2023 Masterclass Webinar-1 Certificate.pdf",
+    "pdf": "assets/certificates/digital-defenders-ctf-webinar.pdf",
+    "thumb": "assets/certificates/digital-defenders-ctf-webinar.png"
+  },
+  {
+    "category": "workshops",
+    "slug": "hackingflix-ethical-hacking-workshop",
+    "source": "CyberSecurity/HackingFlix.pdf",
+    "pdf": "assets/certificates/hackingflix-ethical-hacking-workshop.pdf",
+    "thumb": "assets/certificates/hackingflix-ethical-hacking-workshop.png"
+  }
+]

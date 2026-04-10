@@ -1,5 +1,7 @@
 import { motion } from "framer-motion";
 
+const MotionDiv = motion.div;
+
 const directionVariants = {
   up: { hidden: { opacity: 0, y: 60 }, visible: { opacity: 1, y: 0 } },
   down: { hidden: { opacity: 0, y: -60 }, visible: { opacity: 1, y: 0 } },
@@ -19,7 +21,7 @@ function ScrollReveal({
   const variant = directionVariants[direction] || directionVariants.up;
 
   return (
-    <motion.div
+    <MotionDiv
       initial="hidden"
       whileInView="visible"
       viewport={{ once, margin: "-50px" }}
@@ -28,7 +30,7 @@ function ScrollReveal({
       className={className}
     >
       {children}
-    </motion.div>
+    </MotionDiv>
   );
 }
 

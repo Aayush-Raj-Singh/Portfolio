@@ -6,42 +6,42 @@ const timelineData = [
     date: "2022",
     title: "Started B.Tech CSE Cyber Security",
     description:
-      "Began formal education in computer science with a specialization in cybersecurity. Started building foundations in networking, operating systems, and programming.",
+      "Began formal education in computer science with a specialization in cybersecurity. Built the foundations in networking, operating systems, and programming.",
     badge: "Education",
-  },
-  {
-    date: "2023",
-    title: "Cisco CCNA Certifications",
-    description:
-      "Completed CCNA: Introduction to Networks, Switching, Routing & Wireless Essentials, and Enterprise Networking, Security & Automation certifications.",
-    badge: "Certification",
   },
   {
     date: "2023",
     title: "TryHackMe Journey Begins",
     description:
-      "Started hands-on cybersecurity labs on TryHackMe. Earned OWASP Top 10, Blue Team, Web Fundamentals, and Security Awareness badges.",
+      "Started hands-on cybersecurity labs on TryHackMe. Earned early badges across OWASP Top 10, Blue Team, Web Fundamentals, and Security Awareness.",
     badge: "Lab Work",
   },
   {
     date: "2024",
     title: "OEM Vulnerability Monitoring Tool",
     description:
-      "Built an automated patch tracking system monitoring security advisories across 10+ OEM portals, reducing threat awareness latency by ~70%.",
+      "Built an automated patch tracking workflow across 10+ OEM portals, reducing threat awareness latency by about 70 percent.",
     badge: "Project",
   },
   {
     date: "2024",
     title: "Advent of Cyber 2024",
     description:
-      "Completed TryHackMe's Advent of Cyber 2024 event, including side quests. Earned multiple event badges and maintained learning streaks.",
+      "Completed TryHackMe Advent of Cyber 2024, including side quests, while continuing hands-on blue team practice.",
     badge: "Event",
+  },
+  {
+    date: "2025",
+    title: "Cisco CCNA and Ethical Hacker Certifications",
+    description:
+      "Completed CCNA 1, CCNA 2, CCNA 3, Ethical Hacker, and related Cisco Networking Academy coursework.",
+    badge: "Certification",
   },
   {
     date: "2025",
     title: "Cyber Threat Intelligence AI System",
     description:
-      "Developed an ML-powered threat intelligence platform focused on Indian cyberspace, processing 200+ threat indicators from diverse sources.",
+      "Developed an ML-powered threat intelligence platform focused on Indian cyberspace, processing 200+ threat indicators from multiple public sources.",
     badge: "Project",
   },
   {
@@ -62,7 +62,7 @@ const timelineData = [
     date: "2026",
     title: "Seeking Entry-Level Security Roles",
     description:
-      "Final year of B.Tech. Actively seeking internships and entry-level positions in SOC operations, blue team defense, and security automation.",
+      "Final year of B.Tech and actively seeking internships or entry-level roles in SOC operations, blue team defense, and security automation.",
     badge: "Career",
   },
 ];
@@ -73,7 +73,7 @@ function ExperienceSection() {
       <SectionHeading
         eyebrow="Journey"
         title="Experience & Growth"
-        description="My cybersecurity learning timeline — from education to real-world projects and certifications."
+        description="My cybersecurity learning timeline, from education to real-world projects and certifications."
       />
 
       <div className="timeline">

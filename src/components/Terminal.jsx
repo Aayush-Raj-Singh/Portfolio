@@ -1,376 +1,218 @@
-﻿import { useEffect, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+
+const bootLines = [
+  "Initializing defensive workspace...",
+  "Loading investigation shortcuts...",
+  "Type 'help' to inspect commands.",
+];
+
+const helpLines = [
+  "help            list commands",
+  "whoami          profile summary",
+  "skills          jump to skills",
+  "projects        jump to projects",
+  "certifications  jump to certifications",
+  "contact         jump to contact",
+  "resume          open resume",
+  "email           open email draft",
+  "clear           clear output",
+];
 
 function Terminal() {
-  const outputRef = useRef(null);
   const inputRef = useRef(null);
-  const formRef = useRef(null);
-  const terminalRef = useRef(null);
-  const promptRef = useRef(null);
+  const outputRef = useRef(null);
+  const [input, setInput] = useState("");
+  const [history, setHistory] = useState([]);
+  const [historyIndex, setHistoryIndex] = useState(-1);
+  const [lines, setLines] = useState([
+    "=======================================",
+    " AAYUSH RAJ | SECURITY TERMINAL",
+    "=======================================",
+    "",
+  ]);
+  const [isBooting, setIsBooting] = useState(true);
+  const baseUrl = import.meta.env.BASE_URL || "/";
+  const resumeUrl = `${baseUrl}assets/Aayush_Raj_Cybersecurity_Resume.pdf`;
+
+  const commandMap = useMemo(
+    () => ({
+      help: () => helpLines,
+      whoami: () => [
+        "Aayush Raj",
+        "Cyber security engineer focused on blue-team and automation work.",
+        "Best fit: SOC, analyst, and security engineering roles.",
+      ],
+      skills: () => {
+        document.getElementById("skills")?.scrollIntoView({ behavior: "smooth" });
+        return ["Jumping to the skills section..."];
+      },
+      projects: () => {
+        document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" });
+        return ["Jumping to the projects section..."];
+      },
+      certifications: () => {
+        document
+          .getElementById("cyber-labs")
+          ?.scrollIntoView({ behavior: "smooth" });
+        return ["Jumping to certifications and labs..."];
+      },
+      contact: () => {
+        document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+        return ["Jumping to the contact section..."];
+      },
+      resume: () => {
+        window.open(resumeUrl, "_blank", "noopener,noreferrer");
+        return ["Opening resume in a new tab..."];
+      },
+      email: () => {
+        window.location.href = "mailto:aayush.raj@myyahoo.com";
+        return ["Opening email client..."];
+      },
+      clear: () => "__CLEAR__",
+    }),
+    [resumeUrl]
+  );
 
   useEffect(() => {
-    const output = outputRef.current;
-    const input = inputRef.current;
-    const form = formRef.current;
-    const terminal = terminalRef.current;
-    const promptLabel = promptRef.current;
-
-    if (!output || !input || !form || !terminal || !promptLabel) {
-      return undefined;
-    }
-
-    const commandHistory = [];
-    const timeouts = [];
-    let historyIndex = -1;
-    let isBooting = true;
-    const baseUrl = import.meta.env.BASE_URL || "/";
-    const projectsUrl = `${baseUrl}projects`;
-    const certificationsUrl = `${baseUrl}certifications`;
-    const resumeUrl = `${baseUrl}assets/Aayush_Raj_Cybersecurity_Resume.pdf`;
-
-    const banner = [
-      "=======================================",
-      "  AAYUSH RAJ ();  | CYBER TERMINAL",
-      "=======================================",
-    ];
-
-    const bootSequence = [
-      "Initializing secure shell...",
-      "Loading cyber defense modules...",
-      "Connecting to threat intelligence mesh...",
-      "Access granted. Type 'help' to list commands.",
-    ];
-
-    function appendOutput(text, className = "output-line") {
-      const line = document.createElement("div");
-      line.className = className;
-      line.textContent = text;
-      output.appendChild(line);
-      output.scrollTop = output.scrollHeight;
-    }
-
-    function appendHTML(html, className = "output-line") {
-      const line = document.createElement("div");
-      line.className = className;
-      line.innerHTML = html;
-      output.appendChild(line);
-      output.scrollTop = output.scrollHeight;
-    }
-
-    function clearOutput() {
-      output.innerHTML = "";
-    }
-
-    function renderHelp() {
-      appendHTML(`
-        <div class="output-block">
-          <div class="output-title">Available Commands</div>
-          <ul class="output-list">
-            <li>help</li>
-            <li>whoami</li>
-            <li>ls</li>
-            <li>skills</li>
-            <li>projects</li>
-            <li>certifications</li>
-            <li>contact</li>
-            <li>date</li>
-            <li>history</li>
-            <li>clear</li>
-            <li>ls skills</li>
-          </ul>
-          <div class="output-hint">Tip: Use ↑ and ↓ to navigate history.</div>
-        </div>
-      `);
-    }
-
-    function renderWhoAmI() {
-      appendHTML(`
-        <div class="output-block">
-          <div class="output-title">Identity</div>
-          <div>Aayush Raj ();</div>
-          <div>Cyber Security Engineer</div>
-          <div>Location: Bihar, India</div>
-          <div>Focus: Blue Team, Security Automation, Ethical Hacking</div>
-        </div>
-      `);
-    }
-
-    function renderSkills() {
-      appendHTML(`
-        <div class="output-block">
-          <div class="output-title">Core Skills</div>
-          <ul class="output-list">
-            <li>Endpoint & Windows hardening</li>
-            <li>Threat detection and triage</li>
-            <li>SIEM tuning and alert response</li>
-            <li>Security automation with scripts</li>
-            <li>Vulnerability assessment</li>
-          </ul>
-          <div class="output-hint">Run <span class="terminal-link">ls skills</span> for resume extraction.</div>
-        </div>
-      `);
-    }
-
-    function renderProjects() {
-      appendHTML(`
-        <div class="output-block">
-          <div class="output-title">Highlighted Projects</div>
-          <ul class="output-list">
-            <li>Agent-less Windows System Vulnerability Scanner</li>
-            <li>Cyber Threat Intelligence AI System</li>
-            <li>Cryptographic Algorithm Identifier</li>
-            <li>OEM Vulnerability Monitoring Tool</li>
-          </ul>
-          <div class="output-hint">Open full details: <a class="terminal-link" href="${projectsUrl}">projects</a></div>
-        </div>
-      `);
-    }
-
-    function renderCertifications() {
-      appendHTML(`
-        <div class="output-block">
-          <div class="output-title">Certifications</div>
-          <ul class="output-list">
-            <li>TryHackMe progress and streaks</li>
-            <li>Cisco cybersecurity credentials</li>
-            <li>Security learning badges</li>
-          </ul>
-          <div class="output-hint">Open full details: <a class="terminal-link" href="${certificationsUrl}">certifications</a></div>
-        </div>
-      `);
-    }
-
-    function renderContact() {
-      appendHTML(`
-        <div class="output-block">
-          <div class="output-title">Contact</div>
-          <div>Email: <a class="terminal-link" href="mailto:aayush.raj@myyahoo.com">aayush.raj@myyahoo.com</a></div>
-          <div>LinkedIn: <a class="terminal-link" href="https://www.linkedin.com/in/aayush-raj-77a1bb237" target="_blank" rel="noreferrer">linkedin.com/in/aayush-raj-77a1bb237</a></div>
-          <div>GitHub: <a class="terminal-link" href="https://github.com/Aayush-Raj-Singh" target="_blank" rel="noreferrer">github.com/Aayush-Raj-Singh</a></div>
-          <div>TryHackMe: <a class="terminal-link" href="https://tryhackme.com/p/Abhayaprabha" target="_blank" rel="noreferrer">tryhackme.com/p/Abhayaprabha</a></div>
-          <div>X / Twitter: <a class="terminal-link" href="https://twitter.com/AayushR19149133" target="_blank" rel="noreferrer">twitter.com/AayushR19149133</a></div>
-        </div>
-      `);
-    }
-
-    function renderHistory() {
-      if (commandHistory.length === 0) {
-        appendOutput("No commands yet.");
-        return;
-      }
-
-      appendHTML(`
-        <div class="output-block">
-          <div class="output-title">Command History</div>
-          <ul class="output-list">
-            ${commandHistory.map((cmd, index) => `<li>${index + 1}. ${cmd}</li>`).join("")}
-          </ul>
-        </div>
-      `);
-    }
-
-    function renderLs() {
-      appendHTML(`
-        <div class="output-block">
-          <div class="output-title">Directory</div>
-          <ul class="output-list">
-            <li>about/</li>
-            <li>projects/</li>
-            <li>certifications/</li>
-            <li>contact/</li>
-            <li>skills/</li>
-          </ul>
-        </div>
-      `);
-    }
-
-    async function renderResumeSkills() {
-      appendOutput("Scanning assets/Aayush_Raj_Cybersecurity_Resume.pdf for skill extraction...");
-      const hasCv = await fetch(resumeUrl, { method: "HEAD" })
-        .then((response) => response.ok)
-        .catch(() => false);
-
-      appendHTML(`
-        <div class="output-block">
-          <div class="output-title">Resume Parser</div>
-          <div>Status: ${hasCv ? "Resume detected" : "Resume not found"}</div>
-          <div>Mode: Future-ready parser (PDF extraction planned)</div>
-          <div class="output-hint">Drop your resume in <span class="terminal-link">assets/</span> to enable parsing.</div>
-        </div>
-      `);
-
-      appendHTML(`
-        <div class="output-block">
-          <div class="output-title">Sample Skill Output</div>
-          <ul class="output-list">
-            <li>Windows security baselining</li>
-            <li>Incident response playbooks</li>
-            <li>Automation with PowerShell & Python</li>
-            <li>Threat intelligence monitoring</li>
-          </ul>
-        </div>
-      `);
-    }
-
-    function handleCommand(rawInput) {
-      const trimmed = rawInput.trim();
-
-      appendOutput(`${promptLabel.textContent} ${trimmed}`, "command-line");
-
-      if (!trimmed) {
-        return;
-      }
-
-      commandHistory.push(trimmed);
-      if (commandHistory.length > 100) {
-        commandHistory.shift();
-      }
-      historyIndex = commandHistory.length;
-
-      const tokens = trimmed.split(/\s+/);
-      const base = tokens[0].toLowerCase();
-      const args = tokens.slice(1);
-
-      if (base === "ls") {
-        if (args.join(" ").toLowerCase() === "skills") {
-          renderResumeSkills();
-          return;
+    const timeouts = bootLines.map((line, index) =>
+      window.setTimeout(() => {
+        setLines((current) => [...current, line]);
+        if (index === bootLines.length - 1) {
+          setLines((current) => [...current, ""]);
+          setIsBooting(false);
         }
-        renderLs();
-        return;
-      }
-
-      const commands = {
-        help: renderHelp,
-        whoami: renderWhoAmI,
-        skills: renderSkills,
-        projects: renderProjects,
-        certifications: renderCertifications,
-        contact: renderContact,
-        date: () => appendOutput(new Date().toString()),
-        history: renderHistory,
-        clear: clearOutput,
-      };
-
-      if (!commands[base]) {
-        appendOutput(`Command not found: ${base}. Type 'help' for available commands.`);
-        return;
-      }
-
-      commands[base]();
-    }
-
-    function handleHistoryNavigation(direction) {
-      if (commandHistory.length === 0) {
-        return;
-      }
-
-      historyIndex += direction;
-
-      if (historyIndex < 0) {
-        historyIndex = 0;
-      }
-
-      if (historyIndex >= commandHistory.length) {
-        historyIndex = commandHistory.length;
-        input.value = "";
-        return;
-      }
-
-      input.value = commandHistory[historyIndex];
-    }
-
-    function setupTerminal() {
-      clearOutput();
-      input.disabled = true;
-      banner.forEach((line) => appendOutput(line));
-      appendOutput("");
-      let delay = 0;
-      bootSequence.forEach((line) => {
-        delay += 420;
-        timeouts.push(setTimeout(() => appendOutput(line), delay));
-      });
-
-      timeouts.push(
-        setTimeout(() => {
-          isBooting = false;
-          input.disabled = false;
-          input.focus();
-        }, delay + 300)
-      );
-    }
-
-    const onSubmit = (event) => {
-      event.preventDefault();
-      if (isBooting) {
-        return;
-      }
-      const value = input.value;
-      input.value = "";
-      handleCommand(value);
-    };
-
-    const onKeydown = (event) => {
-      if (event.key === "ArrowUp") {
-        event.preventDefault();
-        handleHistoryNavigation(-1);
-      }
-
-      if (event.key === "ArrowDown") {
-        event.preventDefault();
-        handleHistoryNavigation(1);
-      }
-
-      if (event.ctrlKey && event.key.toLowerCase() === "l") {
-        event.preventDefault();
-        clearOutput();
-      }
-    };
-
-    const focusInput = () => {
-      input.focus();
-    };
-
-    form.addEventListener("submit", onSubmit);
-    input.addEventListener("keydown", onKeydown);
-    document.addEventListener("click", focusInput);
-    terminal.addEventListener("click", focusInput);
-
-    setupTerminal();
+      }, (index + 1) * 260)
+    );
 
     return () => {
-      timeouts.forEach((timeoutId) => clearTimeout(timeoutId));
-      form.removeEventListener("submit", onSubmit);
-      input.removeEventListener("keydown", onKeydown);
-      document.removeEventListener("click", focusInput);
-      terminal.removeEventListener("click", focusInput);
+      timeouts.forEach((timeoutId) => window.clearTimeout(timeoutId));
     };
   }, []);
 
+  useEffect(() => {
+    outputRef.current?.scrollTo({
+      top: outputRef.current.scrollHeight,
+      behavior: "smooth",
+    });
+  }, [lines]);
+
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, [isBooting]);
+
+  const handleCommand = (command) => {
+    const trimmed = command.trim();
+
+    setLines((current) => [...current, `cyber@aayush:~$ ${trimmed || ""}`]);
+
+    if (!trimmed) {
+      return;
+    }
+
+    setHistory((current) => [...current, trimmed]);
+    setHistoryIndex(-1);
+
+    const action = commandMap[trimmed.toLowerCase()];
+
+    if (!action) {
+      setLines((current) => [
+        ...current,
+        "Command not found. Type 'help' for available commands.",
+      ]);
+      return;
+    }
+
+    const result = action();
+
+    if (result === "__CLEAR__") {
+      setLines([
+        "=======================================",
+        " AAYUSH RAJ | SECURITY TERMINAL",
+        "=======================================",
+        "",
+      ]);
+      return;
+    }
+
+    setLines((current) => [...current, ...result, ""]);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    if (isBooting) {
+      return;
+    }
+
+    handleCommand(input);
+    setInput("");
+  };
+
+  const handleKeyDown = (event) => {
+    if (event.key === "ArrowUp" && history.length > 0) {
+      event.preventDefault();
+      const nextIndex =
+        historyIndex === -1 ? history.length - 1 : Math.max(historyIndex - 1, 0);
+      setHistoryIndex(nextIndex);
+      setInput(history[nextIndex]);
+    }
+
+    if (event.key === "ArrowDown" && history.length > 0) {
+      event.preventDefault();
+      if (historyIndex === -1) {
+        return;
+      }
+
+      const nextIndex = historyIndex + 1;
+      if (nextIndex >= history.length) {
+        setHistoryIndex(-1);
+        setInput("");
+        return;
+      }
+
+      setHistoryIndex(nextIndex);
+      setInput(history[nextIndex]);
+    }
+  };
+
   return (
-    <section className="terminal" id="terminal" aria-label="Interactive terminal" ref={terminalRef}>
+    <section className="terminal" id="terminal" aria-label="Interactive terminal">
       <div className="terminal-header">
         <div className="terminal-controls">
-          <span className="dot red"></span>
-          <span className="dot yellow"></span>
-          <span className="dot green"></span>
+          <span className="dot red" />
+          <span className="dot yellow" />
+          <span className="dot green" />
         </div>
-        <div className="terminal-title">ABHAYAPRABHA</div>
-        <div className="terminal-status">secure</div>
+        <div className="terminal-title">security-shell</div>
+        <div className="terminal-status">{isBooting ? "booting" : "ready"}</div>
       </div>
       <div className="terminal-body">
-        <div className="terminal-output" id="terminal-output" aria-live="polite" ref={outputRef}></div>
-        <form className="terminal-input" id="terminal-form" autoComplete="off" ref={formRef}>
-          <span className="prompt-label" id="prompt-label" ref={promptRef}>
-            cyber@Aayush:~$
-          </span>
+        <div
+          className="terminal-output"
+          aria-live="polite"
+          ref={outputRef}
+        >
+          {lines.map((line, index) => (
+            <div
+              key={`${line}-${index}`}
+              className={line.startsWith("cyber@aayush") ? "command-line" : "output-line"}
+            >
+              {line || <span className="output-spacer" aria-hidden="true" />}
+            </div>
+          ))}
+        </div>
+        <form className="terminal-input" onSubmit={handleSubmit} autoComplete="off">
+          <span className="prompt-label">cyber@aayush:~$</span>
           <input
-            id="terminal-input"
+            ref={inputRef}
             type="text"
             name="command"
             spellCheck="false"
-            autoFocus
             aria-label="Terminal command"
-            ref={inputRef}
+            value={input}
+            onChange={(event) => setInput(event.target.value)}
+            onKeyDown={handleKeyDown}
+            disabled={isBooting}
           />
         </form>
       </div>

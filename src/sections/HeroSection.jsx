@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import {
   FiGithub,
@@ -14,6 +14,8 @@ import {
 import Terminal from "../components/Terminal";
 import TriageChallenge from "../components/TriageChallenge";
 
+const MotionDiv = motion.div;
+
 const roles = [
   "Cyber Security Engineer",
   "Blue Team Defender",
@@ -26,13 +28,11 @@ const socialLinks = [
     icon: <FiLinkedin size={20} />,
     href: "https://www.linkedin.com/in/aayush-raj-77a1bb237",
     label: "LinkedIn",
-    color: "#0a66c2",
   },
   {
     icon: <FiGithub size={20} />,
     href: "https://github.com/Aayush-Raj-Singh",
     label: "GitHub",
-    color: "#f5f5f5",
   },
   {
     icon: (
@@ -44,25 +44,21 @@ const socialLinks = [
     ),
     href: "https://tryhackme.com/p/Abhayaprabha",
     label: "TryHackMe",
-    color: "#88fca5",
   },
   {
     icon: <FiTwitter size={20} />,
     href: "https://twitter.com/AayushR19149133",
     label: "X / Twitter",
-    color: "#1da1f2",
   },
   {
     icon: <FiInstagram size={20} />,
     href: "https://www.instagram.com/abhayaprabha/",
     label: "Instagram",
-    color: "#e4405f",
   },
   {
     icon: <FiMail size={20} />,
     href: "mailto:aayush.raj@myyahoo.com",
     label: "Email",
-    color: "#ea4335",
   },
 ];
 
@@ -75,25 +71,29 @@ function HeroSection() {
 
   useEffect(() => {
     const currentRole = roles[roleIndex];
-    let timeout;
+    const shouldPause = !isDeleting && displayText === currentRole;
+    const shouldAdvance = isDeleting && displayText === "";
 
-    if (!isDeleting && displayText === currentRole) {
-      timeout = setTimeout(() => setIsDeleting(true), 2000);
-    } else if (isDeleting && displayText === "") {
-      setIsDeleting(false);
-      setRoleIndex((prev) => (prev + 1) % roles.length);
-    } else {
-      const speed = isDeleting ? 40 : 80;
-      timeout = setTimeout(() => {
-        if (isDeleting) {
-          setDisplayText(currentRole.substring(0, displayText.length - 1));
-        } else {
-          setDisplayText(currentRole.substring(0, displayText.length + 1));
-        }
-      }, speed);
-    }
+    const timeout = window.setTimeout(() => {
+      if (shouldPause) {
+        setIsDeleting(true);
+        return;
+      }
 
-    return () => clearTimeout(timeout);
+      if (shouldAdvance) {
+        setIsDeleting(false);
+        setRoleIndex((prev) => (prev + 1) % roles.length);
+        return;
+      }
+
+      setDisplayText((previousText) =>
+        isDeleting
+          ? currentRole.substring(0, Math.max(previousText.length - 1, 0))
+          : currentRole.substring(0, previousText.length + 1)
+      );
+    }, shouldPause ? 2000 : isDeleting ? 40 : 80);
+
+    return () => window.clearTimeout(timeout);
   }, [displayText, isDeleting, roleIndex]);
 
   const scrollToSection = (id) => {
@@ -103,13 +103,12 @@ function HeroSection() {
 
   return (
     <section className="hero-section" id="hero">
-      {/* Animated background elements */}
       <div className="hero-bg-grid" aria-hidden="true" />
       <div className="hero-bg-glow hero-glow-1" aria-hidden="true" />
       <div className="hero-bg-glow hero-glow-2" aria-hidden="true" />
 
       <div className="hero-content">
-        <motion.div
+        <MotionDiv
           className="hero-text"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -121,8 +120,7 @@ function HeroSection() {
           </span>
 
           <h1 className="hero-title">
-            Hi, I'm{" "}
-            <span className="hero-name">Aayush Raj</span>
+            Hi, I&apos;m <span className="hero-name">Aayush Raj</span>
           </h1>
 
           <div className="hero-role">
@@ -178,9 +176,9 @@ function HeroSection() {
           </div>
 
           <TriageChallenge />
-        </motion.div>
+        </MotionDiv>
 
-        <motion.div
+        <MotionDiv
           className="hero-visual"
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -251,7 +249,7 @@ function HeroSection() {
               </div>
             </div>
           )}
-        </motion.div>
+        </MotionDiv>
       </div>
 
       <button

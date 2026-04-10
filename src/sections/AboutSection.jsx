@@ -2,6 +2,9 @@ import { motion } from "framer-motion";
 import SectionHeading from "../components/SectionHeading";
 import ScrollReveal from "../components/ScrollReveal";
 import { FiShield, FiCode, FiTerminal, FiAward } from "react-icons/fi";
+import { portfolioMetrics } from "../data/portfolioMetrics";
+
+const MotionDiv = motion.div;
 
 const highlights = [
   {
@@ -17,20 +20,26 @@ const highlights = [
   {
     icon: <FiTerminal size={28} />,
     title: "Ethical Hacking",
-    desc: "Web app testing, recon, and OWASP/MITRE mapping in safe labs.",
+    desc: "Web app testing, recon, and OWASP or MITRE mapping in safe labs.",
   },
   {
     icon: <FiAward size={28} />,
     title: "Continuous Learning",
-    desc: "TryHackMe, Cisco certifications, and hands-on lab environments.",
+    desc: "50+ security credentials and badges backed by continuous lab practice.",
   },
 ];
 
 const stats = [
-  { value: "4+", label: "Security Projects" },
-  { value: "20+", label: "Certifications & Badges" },
-  { value: "3+", label: "Security Platforms" },
-  { value: "50+", label: "Components Analyzed" },
+  { value: String(portfolioMetrics.featuredProjects), label: "Featured Projects" },
+  {
+    value: String(portfolioMetrics.securityCredentialsAndBadges),
+    label: "Security Credentials",
+  },
+  {
+    value: String(portfolioMetrics.tryHackMeBadges),
+    label: "TryHackMe Badges",
+  },
+  { value: String(portfolioMetrics.securityTools), label: "Core Tools" },
 ];
 
 function AboutSection() {
@@ -64,13 +73,13 @@ function AboutSection() {
             My focus is on detecting, analyzing, and responding to threats across
             endpoints and networks. I enjoy designing workflows that connect
             telemetry, alerts, and response actions into clean, actionable
-            playbooks. Based in Bihar, India — open to internships and
+            playbooks. Based in Bihar, India, open to internships and
             entry-level security roles worldwide.
           </p>
 
           <div className="about-stats">
             {stats.map((stat, i) => (
-              <motion.div
+              <MotionDiv
                 key={stat.label}
                 className="about-stat"
                 initial={{ opacity: 0, scale: 0.8 }}
@@ -80,7 +89,7 @@ function AboutSection() {
               >
                 <span className="stat-number">{stat.value}</span>
                 <span className="stat-text">{stat.label}</span>
-              </motion.div>
+              </MotionDiv>
             ))}
           </div>
         </ScrollReveal>

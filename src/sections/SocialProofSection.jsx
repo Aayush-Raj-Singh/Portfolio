@@ -1,59 +1,102 @@
 import ScrollReveal from "../components/ScrollReveal";
+import SectionHeading from "../components/SectionHeading";
 import { motion } from "framer-motion";
-import { FiStar, FiAward, FiTrendingUp } from "react-icons/fi";
+import { FiAward, FiTrendingUp, FiStar, FiShield } from "react-icons/fi";
+import { portfolioMetrics } from "../data/portfolioMetrics";
+
+const MotionDiv = motion.div;
 
 const proofItems = [
   {
     icon: <FiAward size={28} />,
-    metric: "20+",
-    label: "Certifications & Badges",
-    detail: "Cisco CCNA series, Ethical Hacker, TryHackMe achievements",
+    metric: String(portfolioMetrics.displayedArchiveItems),
+    label: "Archive-Backed Records",
+    detail:
+      "28+ selected certificates, 22+ TryHackMe badges, and 5+ co-curricular entries now shown in the portfolio.",
     color: "var(--accent-primary)",
   },
   {
+    icon: <FiShield size={28} />,
+    metric: String(portfolioMetrics.featuredProjects),
+    label: "Featured Security Projects",
+    detail:
+      "Built across automation, applied AI, analytics, and threat intelligence.",
+    color: "var(--accent-secondary)",
+  },
+  {
     icon: <FiTrendingUp size={28} />,
-    metric: "200+",
+    metric: portfolioMetrics.threatIndicatorsProcessed,
     label: "Threat Indicators Processed",
-    detail: "Real-world data from web forums, paste sites, and social platforms",
+    detail:
+      "From the India-focused cyber threat intelligence pipeline highlighted in the project section.",
     color: "var(--accent-tertiary)",
   },
   {
     icon: <FiStar size={28} />,
-    metric: "50+",
-    label: "Components Scanned per System",
-    detail: "CVE-mapped vulnerability assessment with exploit correlation",
-    color: "var(--accent-secondary)",
+    metric: portfolioMetrics.windowsComponentsAssessed,
+    label: "Windows Components Assessed",
+    detail:
+      "Mapped and reviewed through the agent-less scanner workflow with CVE-linked reporting.",
+    color: "var(--accent-primary)",
   },
 ];
 
-const endorsements = [
+const evidenceCards = [
   {
-    quote:
-      "Aayush demonstrates exceptional analytical thinking in security assessment. His vulnerability scanner project shows engineering maturity well beyond his academic level.",
-    author: "Project Advisor",
-    role: "B.Tech CSE Cyber Security Department",
+    kicker: "Credentials Breakdown",
+    title: "50+ security credentials and badges selected",
+    copy:
+      "The security-facing part of the archive now includes core security, networking, programming, workshops, and expanded hands-on lab badges.",
+    points: [
+      "9+ core security certificates",
+      "6+ networking certificates",
+      "8+ programming and automation credentials",
+      "22+ TryHackMe badges",
+    ],
   },
   {
-    quote:
-      "Consistent performer with a 30-day learning streak, OWASP Top 10 certification, and Blue Team fundamentals mastery. Demonstrates commitment to continuous security education.",
-    author: "TryHackMe",
-    role: "Platform Achievement Record",
+    kicker: "Project Coverage",
+    title: "Measured work, not placeholder numbers",
+    copy:
+      "The proof section now reflects what is actually shown elsewhere in the portfolio instead of older generic counts.",
+    points: [
+      "10+ OEM portals tracked",
+      "~70% faster advisory visibility",
+      "~60% faster Windows assessment time",
+      "6+ featured project case studies",
+    ],
+  },
+  {
+    kicker: "Hands-On Signals",
+    title: "Practice backed by labs and tooling",
+    copy:
+      "The portfolio evidence spans both structured labs and project delivery, which is stronger than isolated certificates alone.",
+    points: [
+      "8+ tools listed in the security arsenal",
+      "OWASP Top 10 and Blue Team lab badges",
+      "Advent of Cyber 2024 and 2025",
+      "Co-curricular tab retained as a separate final group",
+    ],
   },
 ];
 
 function SocialProofSection() {
   return (
     <section className="social-proof-section" id="social-proof">
-      {/* Metrics Strip */}
+      <SectionHeading
+        eyebrow="Quantifiable Impact"
+        title="Impact in Numbers"
+      />
+
       <div className="proof-metrics">
         {proofItems.map((item, i) => (
-          <motion.div
+          <MotionDiv
             key={item.label}
             className="proof-metric"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.4, delay: i * 0.15 }}
+            transition={{ duration: 0.4, delay: i * 0.12 }}
           >
             <div className="proof-metric-icon" style={{ color: item.color }}>
               {item.icon}
@@ -63,36 +106,30 @@ function SocialProofSection() {
             </div>
             <div className="proof-metric-label">{item.label}</div>
             <div className="proof-metric-detail">{item.detail}</div>
-          </motion.div>
+          </MotionDiv>
         ))}
       </div>
 
-      {/* Endorsements */}
       <ScrollReveal>
-        <div className="endorsements">
-          {endorsements.map((item, i) => (
-            <motion.blockquote
-              key={i}
-              className="endorsement-card"
-              initial={{ opacity: 0, x: i % 2 === 0 ? -30 : 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
+        <div className="proof-evidence-grid">
+          {evidenceCards.map((card, i) => (
+            <MotionDiv
+              key={card.title}
+              className="proof-evidence-card"
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.2 }}
+              transition={{ duration: 0.45, delay: i * 0.1 }}
             >
-              <div className="endorsement-quote">
-                <span className="quote-mark">"</span>
-                {item.quote}
-              </div>
-              <div className="endorsement-author">
-                <div className="endorsement-avatar">
-                  {item.author.charAt(0)}
-                </div>
-                <div>
-                  <div className="endorsement-name">{item.author}</div>
-                  <div className="endorsement-role">{item.role}</div>
-                </div>
-              </div>
-            </motion.blockquote>
+              <span className="proof-evidence-kicker">{card.kicker}</span>
+              <h3 className="proof-evidence-title">{card.title}</h3>
+              <p className="proof-evidence-copy">{card.copy}</p>
+              <ul className="proof-evidence-points">
+                {card.points.map((point) => (
+                  <li key={point}>{point}</li>
+                ))}
+              </ul>
+            </MotionDiv>
           ))}
         </div>
       </ScrollReveal>

@@ -1,5 +1,6 @@
 import SiteHeader from "./components/SiteHeader";
 import SiteFooter from "./components/SiteFooter";
+import ScrollProgress from "./components/ScrollProgress";
 import HeroSection from "./sections/HeroSection";
 import AboutSection from "./sections/AboutSection";
 import SkillsSection from "./sections/SkillsSection";
@@ -12,6 +13,7 @@ import ContactSection from "./sections/ContactSection";
 function App() {
   return (
     <>
+      <ScrollProgress />
       <SiteHeader />
       <main id="main">
         <HeroSection />

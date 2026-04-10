@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useTheme } from "../context/ThemeContext";
+import { useTheme } from "../context/useTheme";
 import { FiSun, FiMoon, FiMenu, FiX, FiDownload } from "react-icons/fi";
 
 const navLinks = [
@@ -49,12 +49,15 @@ function SiteHeader() {
 
   return (
     <>
+      <a className="skip-link" href="#main">
+        Skip to content
+      </a>
       <header className={`site-header ${scrolled ? "header-scrolled" : ""}`} id="site-header">
         <div className="header-inner">
           <button
             className="header-logo"
             onClick={() => scrollTo("hero")}
-            aria-label="Back to top"
+            aria-label="ARS(); home"
           >
             <span className="logo-text-main">ARS</span>
             <span className="logo-text-accent">();</span>
@@ -66,6 +69,7 @@ function SiteHeader() {
                 key={link.id}
                 onClick={() => scrollTo(link.id)}
                 className={`nav-link ${activeSection === link.id ? "nav-active" : ""}`}
+                aria-current={activeSection === link.id ? "page" : undefined}
               >
                 {link.label}
               </button>
@@ -96,6 +100,8 @@ function SiteHeader() {
               className="mobile-toggle"
               onClick={() => setMobileOpen(!mobileOpen)}
               aria-label={mobileOpen ? "Close menu" : "Open menu"}
+              aria-expanded={mobileOpen}
+              aria-controls="mobile-nav-panel"
             >
               {mobileOpen ? <FiX size={22} /> : <FiMenu size={22} />}
             </button>
@@ -109,12 +115,15 @@ function SiteHeader() {
         onClick={() => setMobileOpen(false)}
       >
         <nav
+          id="mobile-nav-panel"
           className="mobile-nav-panel"
           onClick={(e) => e.stopPropagation()}
           aria-label="Mobile navigation"
         >
           <div className="mobile-nav-header">
-            <span className="logo-text-main">ARS<span className="logo-text-accent">();</span></span>
+            <span className="logo-text-main">
+              ARS<span className="logo-text-accent">();</span>
+            </span>
             <button onClick={() => setMobileOpen(false)} aria-label="Close menu">
               <FiX size={24} />
             </button>
@@ -125,6 +134,7 @@ function SiteHeader() {
                 key={link.id}
                 onClick={() => scrollTo(link.id)}
                 className={`mobile-link ${activeSection === link.id ? "mobile-link-active" : ""}`}
+                aria-current={activeSection === link.id ? "page" : undefined}
               >
                 {link.label}
               </button>

@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { FiGithub, FiStar, FiGitBranch, FiCode } from "react-icons/fi";
 
+const MotionDiv = motion.div;
+
 function GitHubStats({ username = "Aayush-Raj-Singh" }) {
   const [stats, setStats] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -73,7 +75,7 @@ function GitHubStats({ username = "Aayush-Raj-Singh" }) {
       </a>
       <div className="github-stat-cards">
         {statItems.map((item, i) => (
-          <motion.div
+          <MotionDiv
             key={item.label}
             className="github-stat-card"
             initial={{ opacity: 0, scale: 0.8 }}
@@ -84,7 +86,7 @@ function GitHubStats({ username = "Aayush-Raj-Singh" }) {
             <span className="stat-icon">{item.icon}</span>
             <span className="stat-value">{item.value}</span>
             <span className="stat-label">{item.label}</span>
-          </motion.div>
+          </MotionDiv>
         ))}
       </div>
       {stats.languages.length > 0 && (
