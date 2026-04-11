@@ -1,54 +1,37 @@
-import { useState } from "react";
+import { Suspense, lazy, useState } from "react";
 import SectionHeading from "../components/SectionHeading";
 import ScrollReveal from "../components/ScrollReveal";
 import SkillBar from "../components/SkillBar";
-import RadarChart from "../components/RadarChart";
-import {
-  FiShield,
-  FiTarget,
-  FiCpu,
-  FiTerminal,
-  FiCode,
-  FiTool,
-} from "react-icons/fi";
+import { FiShield, FiCpu, FiTerminal, FiCode, FiTool } from "react-icons/fi";
+
+const RadarChart = lazy(() => import("../components/RadarChart"));
 
 const skillCategories = [
   {
-    id: "blueteam",
-    title: "Blue Team",
+    id: "cybersecurity",
+    title: "Cybersecurity",
     icon: <FiShield size={22} />,
     skills: [
       { name: "Threat Detection & Triage", tier: "proficient" },
       { name: "SIEM Monitoring & Alert Tuning", tier: "proficient" },
       { name: "Incident Response Workflows", tier: "proficient" },
-      { name: "Log Analysis & Correlation", tier: "intermediate" },
-    ],
-  },
-  {
-    id: "offensive",
-    title: "Offensive Security",
-    icon: <FiTarget size={22} />,
-    skills: [
-      { name: "Web Application Testing", tier: "intermediate" },
-      { name: "Recon & Enumeration", tier: "intermediate" },
       { name: "OWASP & MITRE Mapping", tier: "intermediate" },
-      { name: "Safe Lab Simulations", tier: "proficient" },
     ],
   },
   {
-    id: "automation",
-    title: "Automation & Scripting",
-    icon: <FiCpu size={22} />,
+    id: "development",
+    title: "Development",
+    icon: <FiCode size={22} />,
     skills: [
+      { name: "React & JavaScript", tier: "proficient" },
+      { name: "HTML & CSS / Tailwind", tier: "proficient" },
       { name: "Python", tier: "proficient" },
-      { name: "PowerShell", tier: "intermediate" },
-      { name: "Security Task Orchestration", tier: "intermediate" },
       { name: "API Integrations", tier: "intermediate" },
     ],
   },
   {
     id: "tools",
-    title: "Security Tools",
+    title: "Tools & Platforms",
     icon: <FiTerminal size={22} />,
     skills: [
       { name: "Kali Linux", tier: "intermediate" },
@@ -58,31 +41,31 @@ const skillCategories = [
     ],
   },
   {
-    id: "frontend",
-    title: "Frontend & Development",
-    icon: <FiCode size={22} />,
+    id: "cloud",
+    title: "Cloud",
+    icon: <FiTool size={22} />,
     skills: [
-      { name: "React & JavaScript", tier: "proficient" },
-      { name: "HTML & CSS / Tailwind", tier: "proficient" },
-      { name: "Git & Version Control", tier: "proficient" },
-      { name: "Responsive Web Design", tier: "intermediate" },
+      { name: "AWS Bedrock", tier: "intermediate" },
+      { name: "Cloud Security Basics", tier: "intermediate" },
+      { name: "Identity & Access Concepts", tier: "intermediate" },
+      { name: "Secure API Deployment", tier: "intermediate" },
     ],
   },
   {
-    id: "tooling",
-    title: "Infrastructure & Tooling",
-    icon: <FiTool size={22} />,
+    id: "ai-ml",
+    title: "AI / ML",
+    icon: <FiCpu size={22} />,
     skills: [
-      { name: "Windows Event Logs", tier: "intermediate" },
-      { name: "Network Security Tooling", tier: "intermediate" },
-      { name: "Threat Intel Dashboards", tier: "intermediate" },
-      { name: "Automated Reporting", tier: "intermediate" },
+      { name: "Threat Intel Classification", tier: "intermediate" },
+      { name: "Feature Engineering", tier: "intermediate" },
+      { name: "Model Evaluation", tier: "intermediate" },
+      { name: "Automation Workflows", tier: "proficient" },
     ],
   },
 ];
 
 function SkillsSection() {
-  const [activeCategory, setActiveCategory] = useState("blueteam");
+  const [activeCategory, setActiveCategory] = useState("cybersecurity");
   const activeCat = skillCategories.find((c) => c.id === activeCategory);
 
   return (
@@ -90,7 +73,7 @@ function SkillsSection() {
       <SectionHeading
         eyebrow="Skills"
         title="Technical Arsenal"
-        description="Categorized skill proficiency across cybersecurity, development, and automation domains."
+        description="Categorized skill proficiency across cybersecurity, development, tools, cloud, and AI/ML."
       />
 
       <div className="skills-layout">
@@ -116,13 +99,13 @@ function SkillsSection() {
               </h3>
               <div className="skills-tier-legend">
                 <span className="legend-item">
-                  <span className="legend-dots">●●●●●</span> Proficient
+                  <span className="legend-dots">5/5</span> Proficient
                 </span>
                 <span className="legend-item">
-                  <span className="legend-dots legend-mid">●●●</span> Intermediate
+                  <span className="legend-dots legend-mid">3/5</span> Intermediate
                 </span>
                 <span className="legend-item">
-                  <span className="legend-dots legend-low">●●</span> Exploring
+                  <span className="legend-dots legend-low">2/5</span> Exploring
                 </span>
               </div>
               <div className="skills-bars">
@@ -164,17 +147,19 @@ function SkillsSection() {
             </div>
           </div>
           <div className="radar-chart" role="img" aria-label="Skill radar chart">
-            <RadarChart
-              labels={[
-                "Security Operations",
-                "Incident Response",
-                "Malware Analysis",
-                "Penetration Testing",
-                "Exploitation",
-                "Red Teaming",
-              ]}
-              values={[45, 42, 44, 25, 13, 40]}
-            />
+            <Suspense fallback={<div className="radar-fallback">Loading chart...</div>}>
+              <RadarChart
+                labels={[
+                  "Security Operations",
+                  "Incident Response",
+                  "Malware Analysis",
+                  "Penetration Testing",
+                  "Exploitation",
+                  "Red Teaming",
+                ]}
+                values={[45, 42, 44, 25, 13, 40]}
+              />
+            </Suspense>
           </div>
         </div>
       </ScrollReveal>

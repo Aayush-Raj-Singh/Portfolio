@@ -40,7 +40,7 @@ const projects = [
     result:
       "Made dense crime data easier to interpret during planning and operational review.",
     tags: ["Data Analytics", "GIS Mapping", "Python", "Predictive Intel"],
-    github: "https://github.com/Aayush-Raj-Singh/Crime-Hotspot-Mapping-Tool",
+    github: "https://github.com/Aayush-Raj-Singh/CRIME-HOTSPOT-MAPPING-PROJECT",
     live: null,
   },
   {

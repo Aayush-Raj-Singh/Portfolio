@@ -1,4 +1,4 @@
-@tailwind base;
+﻿@tailwind base;
 @tailwind components;
 @tailwind utilities;
 
@@ -1488,6 +1488,7 @@ html.light .project-card-impact {
   gap: 8px;
   flex-wrap: wrap;
 }
+
 
 .lang-tag {
   padding: 4px 12px;
@@ -5083,4 +5084,439 @@ body {
 .hero-summary {
   max-width: 62ch;
   font-size: clamp(16px, 1vw, 18px);
+}
+
+.hero-title,
+.section-title {
+  text-wrap: balance;
+}
+
+/* Final mobile overrides */
+.hero-content > *,
+.about-content > *,
+.skills-layout > *,
+.projects-grid > *,
+.proof-evidence-grid > *,
+.experience-grid > *,
+.contact-layout > *,
+.profile-grid > * {
+  min-width: 0;
+}
+
+@media (max-width: 900px) {
+  .hero-section {
+    min-height: auto;
+    padding: 104px var(--page-gutter) 56px;
+  }
+
+  .hero-content,
+  .about-content,
+  .skills-layout,
+  .radar-wrapper,
+  .profile-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-content {
+    gap: 28px;
+  }
+
+  .hero-text {
+    max-width: none;
+    padding-right: 8px;
+  }
+
+  .hero-visual {
+    order: 2;
+    width: 100%;
+  }
+
+  .hero-card,
+  .terminal-wrapper,
+  .radar-chart {
+    max-width: 100%;
+  }
+
+  .about-image-wrap {
+    display: flex;
+    justify-content: center;
+  }
+
+  .skills-sidebar {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .skill-category-btn {
+    min-width: 0;
+    padding: 12px 14px;
+  }
+
+  .skill-cat-label {
+    display: inline;
+  }
+
+  .projects-grid,
+  .proof-metrics,
+  .proof-evidence-grid,
+  .experience-grid,
+  .contact-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .profile-grid {
+    gap: 16px;
+  }
+
+  .badge-tabs {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .badge-tab {
+    min-height: 58px;
+    padding: 14px 18px;
+    font-size: 14px;
+  }
+
+  .tab-active::after {
+    left: 16px;
+    right: 16px;
+    bottom: -6px;
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --page-gutter: 16px;
+    --section-padding: 48px var(--page-gutter);
+  }
+
+  .site-header {
+    padding: 0 12px;
+  }
+
+  .header-inner {
+    height: 68px;
+    gap: 12px;
+  }
+
+  .header-logo {
+    font-size: 20px;
+  }
+
+  .resume-btn {
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+
+  .theme-toggle,
+  .mobile-toggle {
+    width: 36px;
+    height: 36px;
+  }
+
+  .section-heading {
+    margin-bottom: 36px;
+  }
+
+  .section-title {
+    font-size: clamp(1.8rem, 9vw, 2.35rem);
+  }
+
+  .section-description {
+    font-size: 15px;
+    line-height: 1.65;
+    max-width: 34ch;
+    padding-right: 6px;
+  }
+
+  .hero-section {
+    padding-top: 92px;
+    padding-bottom: 44px;
+  }
+
+  .hero-title {
+    font-size: clamp(2.35rem, 11vw, 3.15rem);
+    line-height: 1.02;
+  }
+
+  .hero-name {
+    display: block;
+  }
+
+  .hero-role {
+    font-size: 1rem;
+  }
+
+  .hero-summary {
+    max-width: 34ch;
+    font-size: 15px;
+    line-height: 1.8;
+  }
+
+  .hero-ctas {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .hero-ctas > * {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .hero-socials {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .hero-social-icon {
+    width: 42px;
+    height: 42px;
+  }
+
+  .hero-card {
+    border-radius: 18px;
+  }
+
+  .hero-card-header {
+    padding: 12px 14px;
+  }
+
+  .card-title-text {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+  }
+
+  .hero-card-body {
+    padding: 18px 16px;
+    font-size: 12px;
+    line-height: 1.8;
+  }
+
+  .code-line {
+    white-space: normal;
+    word-break: break-word;
+  }
+
+  .code-indent {
+    padding-left: 14px;
+  }
+
+  .terminal-toggle-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .scroll-indicator {
+    display: none;
+  }
+
+  .about-content,
+  .skills-layout,
+  .radar-wrapper,
+  .contact-layout {
+    gap: 22px;
+  }
+
+  .about-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .about-stat {
+    padding: 14px 12px;
+  }
+
+  .stat-number {
+    font-size: 24px;
+  }
+
+  .about-highlights {
+    gap: 16px;
+  }
+
+  .highlight-card,
+  .skills-detail,
+  .tools-showcase,
+  .proof-evidence-card,
+  .project-card-content,
+  .experience-card,
+  .contact-panel-card,
+  .profile-card {
+    padding: 18px;
+  }
+
+  .skills-sidebar {
+    grid-template-columns: 1fr;
+  }
+
+  .skills-detail-title {
+    margin-bottom: 18px;
+    font-size: 20px;
+  }
+
+  .skills-tier-legend {
+    gap: 10px;
+    margin-bottom: 18px;
+    padding-bottom: 12px;
+    font-size: 12px;
+  }
+
+  .legend-dots {
+    letter-spacing: 1px;
+  }
+
+  .skill-bar-header {
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .skill-bar-level {
+    margin-left: 0;
+  }
+
+  .radar-copy,
+  .proof-evidence-copy,
+  .experience-bullets li,
+  .project-card-desc {
+    font-size: 14px;
+  }
+
+  .project-filter-bar {
+    justify-content: flex-start;
+    margin-bottom: 20px;
+  }
+
+  .project-card-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .project-card-links {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .project-link {
+    justify-content: center;
+  }
+
+  .proof-metric,
+  .proof-evidence-card,
+  .experience-card,
+  .experience-milestone,
+  .contact-action-card {
+    border-radius: 18px;
+  }
+
+  .tools-grid {
+    gap: 10px;
+  }
+
+  .tool-chip {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .badge-tabs {
+    grid-template-columns: 1fr;
+  }
+
+  .badges-helper {
+    margin-bottom: 18px;
+    font-size: 13px;
+  }
+
+  .badges-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .badge-card {
+    grid-template-columns: 88px minmax(0, 1fr);
+    gap: 14px;
+    min-height: 0;
+    padding: 14px;
+  }
+
+  .badge-icon-wrap {
+    width: 88px;
+    height: 72px;
+  }
+
+  .badge-name {
+    font-size: 18px;
+  }
+
+  .badge-desc-text {
+    font-size: 13px;
+  }
+
+  .thm-profile {
+    padding: 28px 18px;
+  }
+
+  .profile-card-title,
+  .linkedin-name {
+    font-size: 24px;
+  }
+
+  .profile-stat-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .linkedin-spotlight,
+  .thm-frame {
+    padding: 16px;
+  }
+
+  .linkedin-feature-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-action-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-inner {
+    gap: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: clamp(2.2rem, 13vw, 3rem);
+  }
+
+  .hero-summary,
+  .section-description {
+    font-size: 14px;
+  }
+
+  .about-image-container {
+    width: 170px;
+    height: 170px;
+  }
+
+  .about-stats,
+  .profile-stat-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .badge-card {
+    grid-template-columns: 1fr;
+  }
+
+  .badge-icon-wrap {
+    width: 100%;
+    height: 132px;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }

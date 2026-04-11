@@ -7,16 +7,29 @@ const MotionDiv = motion.div;
 function GitHubStats({ username = "Aayush-Raj-Singh" }) {
   const [stats, setStats] = useState(null);
   const [loading, setLoading] = useState(true);
+  const profileUrl = `https://github.com/${username}`;
+  const cacheKey = `github-stats:${username}`;
 
   useEffect(() => {
     async function fetchStats() {
       try {
+        const cachedStats = sessionStorage.getItem(cacheKey);
+        if (cachedStats) {
+          setStats(JSON.parse(cachedStats));
+        }
+
         const res = await fetch(`https://api.github.com/users/${username}`);
+        if (!res.ok) {
+          throw new Error("GitHub user fetch failed");
+        }
         const user = await res.json();
 
         const reposRes = await fetch(
           `https://api.github.com/users/${username}/repos?per_page=100&sort=updated`
         );
+        if (!reposRes.ok) {
+          throw new Error("GitHub repos fetch failed");
+        }
         const repos = await reposRes.json();
 
         const totalStars = Array.isArray(repos)
@@ -35,15 +48,26 @@ function GitHubStats({ username = "Aayush-Raj-Singh" }) {
           avatarUrl: user.avatar_url,
           profileUrl: user.html_url,
         });
+        sessionStorage.setItem(
+          cacheKey,
+          JSON.stringify({
+            publicRepos: user.public_repos || 0,
+            followers: user.followers || 0,
+            totalStars,
+            languages: languages.slice(0, 5),
+            avatarUrl: user.avatar_url,
+            profileUrl: user.html_url,
+          })
+        );
       } catch {
-        setStats(null);
+        setStats((prev) => prev ?? null);
       } finally {
         setLoading(false);
       }
     }
 
     fetchStats();
-  }, [username]);
+  }, [username, cacheKey]);
 
   if (loading) {
     return (
@@ -54,18 +78,28 @@ function GitHubStats({ username = "Aayush-Raj-Singh" }) {
     );
   }
 
-  if (!stats) return null;
-
   const statItems = [
-    { icon: <FiCode size={22} />, value: stats.publicRepos, label: "Repositories" },
-    { icon: <FiStar size={22} />, value: stats.totalStars, label: "Stars Earned" },
-    { icon: <FiGitBranch size={22} />, value: stats.followers, label: "Followers" },
+    {
+      icon: <FiCode size={22} />,
+      value: stats?.publicRepos ?? "--",
+      label: "Repositories",
+    },
+    {
+      icon: <FiStar size={22} />,
+      value: stats?.totalStars ?? "--",
+      label: "Stars Earned",
+    },
+    {
+      icon: <FiGitBranch size={22} />,
+      value: stats?.followers ?? "--",
+      label: "Followers",
+    },
   ];
 
   return (
     <div className="github-stats">
       <a
-        href={stats.profileUrl}
+        href={stats?.profileUrl || profileUrl}
         target="_blank"
         rel="noreferrer"
         className="github-profile-link"
@@ -89,13 +123,19 @@ function GitHubStats({ username = "Aayush-Raj-Singh" }) {
           </MotionDiv>
         ))}
       </div>
-      {stats.languages.length > 0 && (
+      {stats?.languages?.length > 0 && (
         <div className="github-languages">
           {stats.languages.map((lang) => (
             <span key={lang} className="lang-tag">
               {lang}
             </span>
           ))}
+        </div>
+      )}
+      {!stats && (
+        <div className="github-stats-fallback">
+          GitHub stats are unavailable right now. Open the profile above for the
+          full repository list.
         </div>
       )}
     </div>

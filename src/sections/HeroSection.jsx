@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { Suspense, lazy, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import {
   FiGithub,
@@ -11,10 +11,10 @@ import {
   FiTerminal,
   FiX,
 } from "react-icons/fi";
-import Terminal from "../components/Terminal";
 import TriageChallenge from "../components/TriageChallenge";
 
 const MotionDiv = motion.div;
+const Terminal = lazy(() => import("../components/Terminal"));
 
 const roles = [
   "Cyber Security Engineer",
@@ -193,7 +193,13 @@ function HeroSection() {
               >
                 <FiX size={18} />
               </button>
-              <Terminal />
+              <Suspense
+                fallback={
+                  <div className="terminal-skeleton">Loading terminal...</div>
+                }
+              >
+                <Terminal />
+              </Suspense>
             </div>
           ) : (
             <div className="hero-card">
