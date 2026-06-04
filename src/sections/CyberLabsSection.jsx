@@ -10,6 +10,7 @@ import {
   FiLinkedin,
   FiUsers,
 } from "react-icons/fi";
+import { identity } from "../data/careerProfile";
 
 const MotionDiv = motion.div;
 const MotionA = motion.a;
@@ -514,7 +515,7 @@ function CyberLabsSection() {
       <SectionHeading
         eyebrow="Cybersecurity Labs"
         title="Certifications & Badges"
-        description="Continuous learning across cyber defense, networking, and hands-on security labs."
+        description="Verified learning evidence across cybersecurity, networking, programming, job simulations, TryHackMe labs, and co-curricular leadership."
       />
 
       <ScrollReveal>
@@ -646,10 +647,10 @@ function CyberLabsSection() {
                     <span className="linkedin-brand-icon">
                       <FiLinkedin size={20} />
                     </span>
-                    <span className="linkedin-brand-label">linkedin.com/in/abhayaprabha</span>
+                    <span className="linkedin-brand-label">{identity.linkedinLabel}</span>
                   </div>
                   <div className="linkedin-identity-block">
-                    <h5 className="linkedin-name">Aayush Raj</h5>
+                    <h5 className="linkedin-name">{identity.name}</h5>
                     <span className="linkedin-handle">@abhayaprabha</span>
                   </div>
                   <div className="linkedin-feature-grid" aria-label="LinkedIn profile contents">
@@ -666,7 +667,7 @@ function CyberLabsSection() {
                 </div>
               </div>
               <a
-                href="https://in.linkedin.com/in/abhayaprabha?trk=profile-badge"
+                href={identity.linkedin}
                 target="_blank"
                 rel="noreferrer"
                 className="thm-link profile-link-linkedin"

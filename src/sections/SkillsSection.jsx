@@ -3,66 +3,22 @@ import SectionHeading from "../components/SectionHeading";
 import ScrollReveal from "../components/ScrollReveal";
 import SkillBar from "../components/SkillBar";
 import { FiShield, FiCpu, FiTerminal, FiCode, FiTool } from "react-icons/fi";
+import { skillCategories as profileSkillCategories } from "../data/careerProfile";
 
 const RadarChart = lazy(() => import("../components/RadarChart"));
 
-const skillCategories = [
-  {
-    id: "cybersecurity",
-    title: "Cybersecurity",
-    icon: <FiShield size={22} />,
-    skills: [
-      { name: "Threat Detection & Triage", tier: "proficient" },
-      { name: "SIEM Monitoring & Alert Tuning", tier: "proficient" },
-      { name: "Incident Response Workflows", tier: "proficient" },
-      { name: "OWASP & MITRE Mapping", tier: "intermediate" },
-    ],
-  },
-  {
-    id: "development",
-    title: "Development",
-    icon: <FiCode size={22} />,
-    skills: [
-      { name: "React & JavaScript", tier: "proficient" },
-      { name: "HTML & CSS / Tailwind", tier: "proficient" },
-      { name: "Python", tier: "proficient" },
-      { name: "API Integrations", tier: "intermediate" },
-    ],
-  },
-  {
-    id: "tools",
-    title: "Tools & Platforms",
-    icon: <FiTerminal size={22} />,
-    skills: [
-      { name: "Kali Linux", tier: "intermediate" },
-      { name: "Nmap", tier: "proficient" },
-      { name: "Burp Suite", tier: "intermediate" },
-      { name: "Wireshark", tier: "intermediate" },
-    ],
-  },
-  {
-    id: "cloud",
-    title: "Cloud",
-    icon: <FiTool size={22} />,
-    skills: [
-      { name: "AWS Bedrock", tier: "intermediate" },
-      { name: "Cloud Security Basics", tier: "intermediate" },
-      { name: "Identity & Access Concepts", tier: "intermediate" },
-      { name: "Secure API Deployment", tier: "intermediate" },
-    ],
-  },
-  {
-    id: "ai-ml",
-    title: "AI / ML",
-    icon: <FiCpu size={22} />,
-    skills: [
-      { name: "Threat Intel Classification", tier: "intermediate" },
-      { name: "Feature Engineering", tier: "intermediate" },
-      { name: "Model Evaluation", tier: "intermediate" },
-      { name: "Automation Workflows", tier: "proficient" },
-    ],
-  },
-];
+const iconMap = {
+  cybersecurity: <FiShield size={22} />,
+  engineering: <FiCode size={22} />,
+  tools: <FiTerminal size={22} />,
+  "cloud-devsecops": <FiTool size={22} />,
+  "ai-ml": <FiCpu size={22} />,
+};
+
+const skillCategories = profileSkillCategories.map((category) => ({
+  ...category,
+  icon: iconMap[category.id],
+}));
 
 function SkillsSection() {
   const [activeCategory, setActiveCategory] = useState("cybersecurity");
@@ -72,8 +28,8 @@ function SkillsSection() {
     <section className="skills-section" id="skills">
       <SectionHeading
         eyebrow="Skills"
-        title="Technical Arsenal"
-        description="Categorized skill proficiency across cybersecurity, development, tools, cloud, and AI/ML."
+        title="Security Skill Matrix"
+        description="Role-aligned skill coverage across SOC operations, VAPT, threat intelligence, security automation, cloud deployment, and AI/ML."
       />
 
       <div className="skills-layout">
@@ -150,14 +106,14 @@ function SkillsSection() {
             <Suspense fallback={<div className="radar-fallback">Loading chart...</div>}>
               <RadarChart
                 labels={[
-                  "Security Operations",
-                  "Incident Response",
-                  "Malware Analysis",
+              "Security Operations",
+                  "Vulnerability Management",
+                  "Threat Intelligence",
                   "Penetration Testing",
-                  "Exploitation",
-                  "Red Teaming",
+                  "Security Automation",
+                  "Cloud / DevSecOps",
                 ]}
-                values={[45, 42, 44, 25, 13, 40]}
+                values={[72, 70, 68, 64, 74, 58]}
               />
             </Suspense>
           </div>

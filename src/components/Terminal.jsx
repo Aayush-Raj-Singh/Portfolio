@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import { identity } from "../data/careerProfile";
 
 const bootLines = [
   "Initializing defensive workspace...",
@@ -32,15 +33,15 @@ function Terminal() {
   ]);
   const [isBooting, setIsBooting] = useState(true);
   const baseUrl = import.meta.env.BASE_URL || "/";
-  const resumeUrl = `${baseUrl}assets/Aayush_Raj_Cybersecurity_Resume.pdf`;
+  const resumeUrl = `${baseUrl}${identity.resumeAsset}`;
 
   const commandMap = useMemo(
     () => ({
       help: () => helpLines,
       whoami: () => [
-        "Aayush Raj",
-        "Cyber security engineer focused on blue-team and automation work.",
-        "Best fit: SOC, analyst, and security engineering roles.",
+        identity.name,
+        "Cybersecurity analyst focused on SOC, VAPT, threat intelligence, and automation work.",
+        "Best fit: SOC Analyst, Cybersecurity Analyst, VAPT Analyst, and Security Automation roles.",
       ],
       skills: () => {
         document.getElementById("skills")?.scrollIntoView({ behavior: "smooth" });
@@ -65,7 +66,7 @@ function Terminal() {
         return ["Opening resume in a new tab..."];
       },
       email: () => {
-        window.location.href = "mailto:aayush.raj@myyahoo.com";
+        window.location.href = `mailto:${identity.email}`;
         return ["Opening email client..."];
       },
       clear: () => "__CLEAR__",

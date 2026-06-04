@@ -3,6 +3,7 @@ import SectionHeading from "../components/SectionHeading";
 import ScrollReveal from "../components/ScrollReveal";
 import { FiShield, FiCode, FiTerminal, FiAward } from "react-icons/fi";
 import { portfolioMetrics } from "../data/portfolioMetrics";
+import { identity, proofHighlights } from "../data/careerProfile";
 
 const MotionDiv = motion.div;
 
@@ -25,21 +26,16 @@ const highlights = [
   {
     icon: <FiAward size={28} />,
     title: "Continuous Learning",
-    desc: "50+ security credentials and badges backed by continuous lab practice.",
+    desc: "Certifications, labs, research, and project work aligned to entry-level security roles.",
   },
 ];
 
 const stats = [
   { value: String(portfolioMetrics.featuredProjects), label: "Featured Projects" },
-  {
-    value: String(portfolioMetrics.securityCredentialsAndBadges),
-    label: "Security Credentials",
-  },
-  {
-    value: String(portfolioMetrics.tryHackMeBadges),
-    label: "TryHackMe Badges",
-  },
-  { value: String(portfolioMetrics.securityTools), label: "Core Tools" },
+  ...proofHighlights.slice(0, 3).map((item) => ({
+    value: item.value,
+    label: item.label,
+  })),
 ];
 
 function AboutSection() {
@@ -49,8 +45,8 @@ function AboutSection() {
     <section className="about-section" id="about">
       <SectionHeading
         eyebrow="About Me"
-        title="Defending the Digital Frontier"
-        description="Final-year B.Tech CSE Cyber Security student building a career in defensive security, blending practical blue team operations with automation and ethical hacking."
+        title="Cybersecurity Analyst Profile"
+        description="B.Tech CSE (Cyber Security) graduate focused on SOC operations, VAPT, threat intelligence, and security automation."
       />
 
       <div className="about-content">
@@ -67,14 +63,15 @@ function AboutSection() {
         </ScrollReveal>
 
         <ScrollReveal direction="right" className="about-text">
-          <h3 className="about-name">Aayush Raj</h3>
-          <p className="about-role">Cyber Security Engineer | SOC-L1</p>
+          <h3 className="about-name">{identity.name}</h3>
+          <p className="about-role">{identity.headline}</p>
           <p className="about-bio">
-            My focus is on detecting, analyzing, and responding to threats across
-            endpoints and networks. I enjoy designing workflows that connect
-            telemetry, alerts, and response actions into clean, actionable
-            playbooks. Based in Bihar, India, open to internships and
-            entry-level security roles worldwide.
+            My focus is detecting, analyzing, and prioritizing security risks
+            across endpoints, networks, applications, and public threat sources.
+            I build practical workflows that connect telemetry, advisories,
+            CVEs, indicators, dashboards, and reports into analyst-ready
+            security outcomes. Based in {identity.location}, open to
+            entry-level cybersecurity roles.
           </p>
 
           <div className="about-stats">

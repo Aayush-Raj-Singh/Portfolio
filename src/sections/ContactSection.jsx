@@ -6,24 +6,23 @@ import {
   FiMapPin,
   FiGithub,
   FiLinkedin,
-  FiTwitter,
-  FiInstagram,
   FiSend,
   FiCheck,
   FiAlertCircle,
 } from "react-icons/fi";
+import { identity } from "../data/careerProfile";
 
 const contactInfo = [
   {
     icon: <FiMail size={22} />,
     label: "Email",
-    value: "aayush.raj@myyahoo.com",
-    href: "mailto:aayush.raj@myyahoo.com",
+    value: identity.email,
+    href: `mailto:${identity.email}`,
   },
   {
     icon: <FiMapPin size={22} />,
     label: "Location",
-    value: "Bihar, India",
+    value: identity.location,
     href: null,
   },
 ];
@@ -31,29 +30,19 @@ const contactInfo = [
 const contactSocials = [
   {
     icon: <FiGithub size={22} />,
-    href: "https://github.com/Aayush-Raj-Singh",
+    href: identity.github,
     label: "GitHub",
   },
   {
     icon: <FiLinkedin size={22} />,
-    href: "https://www.linkedin.com/in/aayush-raj-77a1bb237",
+    href: identity.linkedin,
     label: "LinkedIn",
-  },
-  {
-    icon: <FiTwitter size={22} />,
-    href: "https://twitter.com/AayushR19149133",
-    label: "X / Twitter",
-  },
-  {
-    icon: <FiInstagram size={22} />,
-    href: "https://www.instagram.com/abhayaprabha/",
-    label: "Instagram",
   },
 ];
 
 function ContactSection() {
   const formRef = useRef(null);
-  const [status, setStatus] = useState("idle"); // idle, sending, success, error
+  const [status, setStatus] = useState("idle");
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -70,8 +59,7 @@ function ContactSection() {
     setStatus("sending");
 
     try {
-      // FormSubmit integration — sends directly to your email without any backend
-      const response = await fetch("https://formsubmit.co/ajax/aayush15raj0@gmail.com", {
+      const response = await fetch(`https://formsubmit.co/ajax/${identity.email}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -83,7 +71,7 @@ function ContactSection() {
           subject: formData.subject,
           message: formData.message,
           _subject: `Portfolio Contact: ${formData.subject}`,
-          _template: "box", // Beautiful email template
+          _template: "box",
         }),
       });
 
@@ -105,16 +93,16 @@ function ContactSection() {
       <SectionHeading
         eyebrow="Contact"
         title="Let's Connect"
-        description="I'm open to internships, entry-level cyber security roles, and collaborative security automation projects."
+        description="Open to internships, entry-level cybersecurity roles, SOC analyst work, VAPT opportunities, and security automation projects."
       />
 
       <div className="contact-layout">
         <ScrollReveal direction="left" className="contact-info-panel">
           <h3 className="contact-info-title">Get in Touch</h3>
           <p className="contact-info-desc">
-            Whether you're a recruiter looking for security talent, a team
-            seeking collaboration, or a fellow enthusiast — I'd love to hear
-            from you.
+            Recruiters, security teams, and collaborators can reach me directly
+            for cybersecurity analyst, SOC, VAPT, threat intelligence, or
+            security automation opportunities.
           </p>
 
           <div className="contact-details">
@@ -237,7 +225,7 @@ function ContactSection() {
               {status === "error" && (
                 <>
                   <FiAlertCircle size={18} />
-                  <span>Failed — Try Again</span>
+                  <span>Failed - Try Again</span>
                 </>
               )}
             </button>

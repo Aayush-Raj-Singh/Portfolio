@@ -3,8 +3,6 @@ import { motion } from "framer-motion";
 import {
   FiGithub,
   FiLinkedin,
-  FiTwitter,
-  FiInstagram,
   FiMail,
   FiDownload,
   FiArrowDown,
@@ -12,26 +10,20 @@ import {
   FiX,
 } from "react-icons/fi";
 import TriageChallenge from "../components/TriageChallenge";
+import { identity, profileSummary, targetRoles } from "../data/careerProfile";
 
 const MotionDiv = motion.div;
 const Terminal = lazy(() => import("../components/Terminal"));
 
-const roles = [
-  "Cyber Security Engineer",
-  "Blue Team Defender",
-  "Security Automation Builder",
-  "Ethical Hacker",
-];
-
 const socialLinks = [
   {
     icon: <FiLinkedin size={20} />,
-    href: "https://www.linkedin.com/in/aayush-raj-77a1bb237",
+    href: identity.linkedin,
     label: "LinkedIn",
   },
   {
     icon: <FiGithub size={20} />,
-    href: "https://github.com/Aayush-Raj-Singh",
+    href: identity.github,
     label: "GitHub",
   },
   {
@@ -42,22 +34,12 @@ const socialLinks = [
         style={{ width: 24, height: 18, filter: "brightness(1.2)" }}
       />
     ),
-    href: "https://tryhackme.com/p/Abhayaprabha",
+    href: identity.tryHackMe,
     label: "TryHackMe",
   },
   {
-    icon: <FiTwitter size={20} />,
-    href: "https://twitter.com/AayushR19149133",
-    label: "X / Twitter",
-  },
-  {
-    icon: <FiInstagram size={20} />,
-    href: "https://www.instagram.com/abhayaprabha/",
-    label: "Instagram",
-  },
-  {
     icon: <FiMail size={20} />,
-    href: "mailto:aayush.raj@myyahoo.com",
+    href: `mailto:${identity.email}`,
     label: "Email",
   },
 ];
@@ -70,7 +52,7 @@ function HeroSection() {
   const baseUrl = import.meta.env.BASE_URL || "/";
 
   useEffect(() => {
-    const currentRole = roles[roleIndex];
+    const currentRole = targetRoles[roleIndex];
     const shouldPause = !isDeleting && displayText === currentRole;
     const shouldAdvance = isDeleting && displayText === "";
 
@@ -82,7 +64,7 @@ function HeroSection() {
 
       if (shouldAdvance) {
         setIsDeleting(false);
-        setRoleIndex((prev) => (prev + 1) % roles.length);
+        setRoleIndex((prev) => (prev + 1) % targetRoles.length);
         return;
       }
 
@@ -120,7 +102,7 @@ function HeroSection() {
           </span>
 
           <h1 className="hero-title">
-            Hi, I&apos;m <span className="hero-name">Aayush Raj</span>
+            Hi, I&apos;m <span className="hero-name">{identity.name}</span>
           </h1>
 
           <div className="hero-role">
@@ -130,9 +112,7 @@ function HeroSection() {
           </div>
 
           <p className="hero-summary">
-            Final-year B.Tech CSE Cyber Security student focused on blue team
-            defense, security automation, and ethical hacking. Building resilient
-            systems and actionable intelligence for modern threat landscapes.
+            {profileSummary}
           </p>
 
           <div className="hero-ctas">
@@ -151,7 +131,7 @@ function HeroSection() {
             </button>
             <a
               className="cta-outline"
-              href={`${baseUrl}assets/Aayush_Raj_Cybersecurity_Resume.pdf`}
+              href={`${baseUrl}${identity.resumeAsset}`}
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -209,7 +189,7 @@ function HeroSection() {
                   <span className="dot dot-yellow" />
                   <span className="dot dot-green" />
                 </div>
-                <span className="card-title-text">ABHAYAPRABHA</span>
+                <span className="card-title-text">SECURITY PROFILE</span>
               </div>
               <div className="hero-card-body">
                 <div className="code-line">
@@ -219,18 +199,18 @@ function HeroSection() {
                 </div>
                 <div className="code-line code-indent">
                   <span className="code-key">name</span>:{" "}
-                  <span className="code-string">"Aayush Raj"</span>,
+                  <span className="code-string">"{identity.name}"</span>,
                 </div>
                 <div className="code-line code-indent">
                   <span className="code-key">role</span>:{" "}
-                  <span className="code-string">"Cyber Security Engineer"</span>,
+                  <span className="code-string">"{identity.title}"</span>,
                 </div>
                 <div className="code-line code-indent">
                   <span className="code-key">focus</span>:{" "}
                   <span className="code-bracket">[</span>
-                  <span className="code-string">"Blue Team"</span>,{" "}
-                  <span className="code-string">"Automation"</span>,{" "}
-                  <span className="code-string">"Ethical Hacking"</span>
+                  <span className="code-string">"SOC"</span>,{" "}
+                  <span className="code-string">"VAPT"</span>,{" "}
+                  <span className="code-string">"Threat Intel"</span>
                   <span className="code-bracket">]</span>,
                 </div>
                 <div className="code-line code-indent">
@@ -239,7 +219,7 @@ function HeroSection() {
                 </div>
                 <div className="code-line code-indent">
                   <span className="code-key">location</span>:{" "}
-                  <span className="code-string">"Bihar, India"</span>,
+                  <span className="code-string">"{identity.location}"</span>,
                 </div>
                 <div className="code-line">
                   <span className="code-bracket">{"}"}</span>;

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useTheme } from "../context/useTheme";
 import { FiSun, FiMoon, FiMenu, FiX, FiDownload } from "react-icons/fi";
+import { identity } from "../data/careerProfile";
 
 const navLinks = [
   { id: "hero", label: "Home" },
@@ -79,7 +80,7 @@ function SiteHeader() {
           <div className="header-actions">
             <a
               className="resume-btn"
-              href={`${baseUrl}assets/Aayush_Raj_Cybersecurity_Resume.pdf`}
+              href={`${baseUrl}${identity.resumeAsset}`}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="View and download resume"
@@ -143,7 +144,7 @@ function SiteHeader() {
           <div className="mobile-nav-footer">
             <a
               className="resume-btn mobile-resume"
-              href={`${baseUrl}assets/Aayush_Raj_Cybersecurity_Resume.pdf`}
+              href={`${baseUrl}${identity.resumeAsset}`}
               target="_blank"
               rel="noopener noreferrer"
             >

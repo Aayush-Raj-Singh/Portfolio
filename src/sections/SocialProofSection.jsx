@@ -3,79 +3,47 @@ import SectionHeading from "../components/SectionHeading";
 import { motion } from "framer-motion";
 import { FiAward, FiTrendingUp, FiStar, FiShield } from "react-icons/fi";
 import { portfolioMetrics } from "../data/portfolioMetrics";
+import { proofHighlights } from "../data/careerProfile";
 
 const MotionDiv = motion.div;
 
-const proofItems = [
-  {
-    icon: <FiAward size={28} />,
-    metric: String(portfolioMetrics.displayedArchiveItems),
-    label: "Archive-Backed Records",
-    detail:
-      "28+ selected certificates, 22+ TryHackMe badges, and 5+ co-curricular entries now shown in the portfolio.",
-    color: "var(--accent-primary)",
-  },
-  {
-    icon: <FiShield size={28} />,
-    metric: String(portfolioMetrics.featuredProjects),
-    label: "Featured Security Projects",
-    detail:
-      "Built across automation, applied AI, analytics, and threat intelligence.",
-    color: "var(--accent-secondary)",
-  },
-  {
-    icon: <FiTrendingUp size={28} />,
-    metric: portfolioMetrics.threatIndicatorsProcessed,
-    label: "Threat Indicators Processed",
-    detail:
-      "From the India-focused cyber threat intelligence pipeline highlighted in the project section.",
-    color: "var(--accent-tertiary)",
-  },
-  {
-    icon: <FiStar size={28} />,
-    metric: portfolioMetrics.windowsComponentsAssessed,
-    label: "Windows Components Assessed",
-    detail:
-      "Mapped and reviewed through the agent-less scanner workflow with CVE-linked reporting.",
-    color: "var(--accent-primary)",
-  },
-];
+const icons = [FiAward, FiShield, FiTrendingUp, FiStar];
 
 const evidenceCards = [
   {
-    kicker: "Credentials Breakdown",
-    title: "50+ security credentials and badges selected",
+    kicker: "Hands-on practice",
+    title: "Security learning backed by labs and certifications",
     copy:
-      "The security-facing part of the archive now includes core security, networking, programming, workshops, and expanded hands-on lab badges.",
+      "I have practiced core cybersecurity concepts through structured certifications, TryHackMe rooms, CTF-style exercises, and networking labs.",
     points: [
-      "9+ core security certificates",
-      "6+ networking certificates",
-      "8+ programming and automation credentials",
-      "22+ TryHackMe badges",
+      "SOC and VAPT fundamentals",
+      "Top 1% TryHackMe profile",
+      "ISC2 Certified in Cybersecurity (CC)",
+      "Cisco cybersecurity and CCNA track",
     ],
   },
   {
-    kicker: "Project Coverage",
-    title: "Measured work, not placeholder numbers",
+    kicker: "Projects I built",
+    title: "Security tools developed from scratch",
     copy:
-      "The proof section now reflects what is actually shown elsewhere in the portfolio instead of older generic counts.",
+      "I built practical projects around threat intelligence, vulnerability monitoring, Windows posture assessment, cryptographic analysis, and geospatial analytics.",
     points: [
-      "10+ OEM portals tracked",
-      "~70% faster advisory visibility",
-      "~60% faster Windows assessment time",
-      "6+ featured project case studies",
+      "IOC extraction and threat scoring",
+      "CVE correlation and Windows posture assessment",
+      "CVSS / EPSS / KEV advisory enrichment",
+      "Dashboards, reports, APIs, and automation",
     ],
   },
   {
-    kicker: "Hands-On Signals",
-    title: "Practice backed by labs and tooling",
+    kicker: "Internship exposure",
+    title: "Applied work in risk assessment and VAPT",
     copy:
-      "The portfolio evidence spans both structured labs and project delivery, which is stronger than isolated certificates alone.",
+      "My internship work helped me understand vulnerability discovery, risk prioritization, reporting, and how security findings are communicated.",
     points: [
-      "8+ tools listed in the security arsenal",
-      "OWASP Top 10 and Blue Team lab badges",
-      "Advent of Cyber 2024 and 2025",
-      "Co-curricular tab retained as a separate final group",
+      "15+ systems reviewed",
+      "40+ high-risk weaknesses identified",
+      "SIEM-style alert review exposure",
+      "Mitigation and reporting support",
     ],
   },
 ];
@@ -84,30 +52,35 @@ function SocialProofSection() {
   return (
     <section className="social-proof-section" id="social-proof">
       <SectionHeading
-        eyebrow="Quantifiable Impact"
-        title="Impact in Numbers"
+        eyebrow="Proof of Work"
+        title="What I Have Built and Practiced"
+        description="A quick view of my certifications, labs, internships, projects, and measurable security outcomes."
       />
 
       <div className="proof-metrics">
-        {proofItems.map((item, i) => (
-          <MotionDiv
-            key={item.label}
-            className="proof-metric"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.4, delay: i * 0.12 }}
-          >
-            <div className="proof-metric-icon" style={{ color: item.color }}>
-              {item.icon}
-            </div>
-            <div className="proof-metric-number" style={{ color: item.color }}>
-              {item.metric}
-            </div>
-            <div className="proof-metric-label">{item.label}</div>
-            <div className="proof-metric-detail">{item.detail}</div>
-          </MotionDiv>
-        ))}
+        {proofHighlights.map((item, i) => {
+          const Icon = icons[i % icons.length];
+
+          return (
+            <MotionDiv
+              key={item.label}
+              className="proof-metric"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: i * 0.12 }}
+            >
+              <div className="proof-metric-icon" style={{ color: "var(--accent-primary)" }}>
+                <Icon size={28} />
+              </div>
+              <div className="proof-metric-number" style={{ color: "var(--accent-primary)" }}>
+                {item.value}
+              </div>
+              <div className="proof-metric-label">{item.label}</div>
+              <div className="proof-metric-detail">{item.detail}</div>
+            </MotionDiv>
+          );
+        })}
       </div>
 
       <ScrollReveal>
@@ -131,6 +104,34 @@ function SocialProofSection() {
               </ul>
             </MotionDiv>
           ))}
+        </div>
+      </ScrollReveal>
+
+      <ScrollReveal>
+        <div className="proof-work-panel">
+          <div>
+            <span className="proof-evidence-kicker">Complete archive</span>
+            <h3 className="proof-evidence-title">Certificates, labs, and activities are organized in one place</h3>
+            <p className="proof-evidence-copy">
+              I keep the broader archive available so reviewers can check my
+              security learning, technical practice, TryHackMe badges, and
+              co-curricular activities without overloading the resume.
+            </p>
+          </div>
+          <div className="proof-work-stats">
+            <div className="proof-mini-card">
+              <span className="proof-metric-number">{portfolioMetrics.displayedArchiveItems}</span>
+              <span className="proof-metric-label">Archive Items</span>
+            </div>
+            <div className="proof-mini-card">
+              <span className="proof-metric-number">{portfolioMetrics.tryHackMeBadges}</span>
+              <span className="proof-metric-label">TryHackMe Badges</span>
+            </div>
+            <div className="proof-mini-card">
+              <span className="proof-metric-number">{portfolioMetrics.securityTools}</span>
+              <span className="proof-metric-label">Core Tools</span>
+            </div>
+          </div>
         </div>
       </ScrollReveal>
     </section>

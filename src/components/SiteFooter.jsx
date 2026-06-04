@@ -1,37 +1,27 @@
 import {
   FiGithub,
   FiLinkedin,
-  FiTwitter,
-  FiInstagram,
   FiMail,
   FiArrowUp,
   FiHeart,
+  FiDownload,
 } from "react-icons/fi";
+import { identity } from "../data/careerProfile";
 
 const socialLinks = [
   {
     icon: <FiGithub size={20} />,
-    href: "https://github.com/Aayush-Raj-Singh",
+    href: identity.github,
     label: "GitHub",
   },
   {
     icon: <FiLinkedin size={20} />,
-    href: "https://www.linkedin.com/in/aayush-raj-77a1bb237",
+    href: identity.linkedin,
     label: "LinkedIn",
   },
   {
-    icon: <FiTwitter size={20} />,
-    href: "https://twitter.com/AayushR19149133",
-    label: "X / Twitter",
-  },
-  {
-    icon: <FiInstagram size={20} />,
-    href: "https://www.instagram.com/abhayaprabha/",
-    label: "Instagram",
-  },
-  {
     icon: <FiMail size={20} />,
-    href: "mailto:aayush.raj@myyahoo.com",
+    href: `mailto:${identity.email}`,
     label: "Email",
   },
 ];
@@ -45,6 +35,8 @@ const quickLinks = [
 ];
 
 function SiteFooter() {
+  const baseUrl = import.meta.env.BASE_URL || "/";
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -63,12 +55,27 @@ function SiteFooter() {
             <span className="logo-text-accent">();</span>
           </button>
           <p className="footer-tagline">
-            Cyber Security Engineer - Building resilient systems and actionable
-            intelligence for modern threat landscapes.
+            Cybersecurity analyst focused on SOC operations, VAPT, threat
+            intelligence, and security automation.
           </p>
           <div className="footer-status">
             <span className="status-dot" />
-            <span>Open to internships & entry-level security roles</span>
+            <span>Open to internships and entry-level cybersecurity roles</span>
+          </div>
+          <div className="footer-cta-row">
+            <a className="footer-email-link" href={`mailto:${identity.email}`}>
+              <FiMail size={16} />
+              <span>{identity.email}</span>
+            </a>
+            <a
+              className="footer-resume-link"
+              href={`${baseUrl}${identity.resumeAsset}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <FiDownload size={16} />
+              <span>Resume</span>
+            </a>
           </div>
         </div>
 
@@ -106,8 +113,8 @@ function SiteFooter() {
 
       <div className="footer-bottom">
         <p>
-          (c) {new Date().getFullYear()} Aayush Raj. Crafted with{" "}
-          <FiHeart size={14} className="inline-heart" /> in Bihar, India.
+          (c) {new Date().getFullYear()} {identity.name}. Built with{" "}
+          <FiHeart size={14} className="inline-heart" /> in {identity.location}.
         </p>
         <button
           className="back-to-top"
