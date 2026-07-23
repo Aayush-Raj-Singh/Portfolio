@@ -276,6 +276,23 @@ export const projects = [
   },
 ];
 
+export const experiences = [
+  {
+    title: "CCNA Certification Training (45 Days)",
+    organization: "BIPARD Skill Park, Govt. of Bihar (WALMI Campus)",
+    location: "Patna, Bihar, India",
+    period: "Jul 2026 – Aug 2026",
+    datesDetail: "2 Jul – 15 Aug 2026",
+    badge: "Govt Skilling Initiative",
+    tags: ["CCNA", "Routing & Switching", "VLANs / Trunking", "OSPF", "ACLs", "NAT / DHCP", "Subnetting", "Live Cisco Hardware"],
+    highlights: [
+      "Selected for an intensive 45-day CCNA networking program (2 Jul – 15 Aug 2026) at BIPARD Skill Park – Bihar’s flagship state government skill-development institute, delivered through industry-standard labs and accredited trainers.",
+      "Gained hands-on expertise in routing and switching, VLANs, trunking (DTP), OSPF, ACLs, NAT/DHCP, subnetting, and network troubleshooting on live Cisco hardware and Packet Tracer simulations.",
+      "Trained under an employment-linked skilling initiative focused on job-ready, industry-recognized networking competency for entry-level Network Engineer and Security Analyst roles.",
+    ],
+  },
+];
+
 export const timeline = [
   {
     date: "2022",
@@ -313,6 +330,13 @@ export const timeline = [
     badge: "Certification",
   },
   {
+    date: "Jul 2026 – Aug 2026",
+    title: "CCNA Certification Training (45 Days) – BIPARD Skill Park",
+    description:
+      "Selected for intensive 45-day CCNA networking program at BIPARD Skill Park (Govt. of Bihar). Gained hands-on expertise in routing, switching, VLANs, OSPF, ACLs, NAT/DHCP, and network troubleshooting on live Cisco hardware.",
+    badge: "Training & Experience",
+  },
+  {
     date: "2026",
     title: "Published Research and Built Final-Year Analytics Work",
     description:
@@ -321,9 +345,9 @@ export const timeline = [
   },
   {
     date: "2026",
-    title: "Seeking Entry-Level Cybersecurity Roles",
+    title: "Seeking Entry-Level Cybersecurity & Networking Roles",
     description:
-      "Targeting SOC Analyst, Cybersecurity Analyst, VAPT Analyst, Vulnerability Assessment, and Security Automation roles.",
+      "Targeting SOC Analyst, Cybersecurity Analyst, VAPT Analyst, Vulnerability Assessment, Network Engineer, and Security Automation roles.",
     badge: "Career",
   },
 ];
