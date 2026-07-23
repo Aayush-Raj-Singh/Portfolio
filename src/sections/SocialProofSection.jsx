@@ -50,7 +50,7 @@ const evidenceCards = [
 
 function SocialProofSection() {
   return (
-    <section className="social-proof-section" id="social-proof">
+    <section className="social-proof-section">
       <SectionHeading
         eyebrow="Proof of Work"
         title="What I Have Built and Practiced"
@@ -65,7 +65,7 @@ function SocialProofSection() {
             <MotionDiv
               key={item.label}
               className="proof-metric"
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 1, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: i * 0.12 }}
@@ -89,7 +89,7 @@ function SocialProofSection() {
             <MotionDiv
               key={card.title}
               className="proof-evidence-card"
-              initial={{ opacity: 0, y: 24 }}
+              initial={{ opacity: 1, y: 18 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.45, delay: i * 0.1 }}

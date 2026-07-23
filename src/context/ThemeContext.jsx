@@ -1,14 +1,23 @@
 import { useEffect, useState } from "react";
 import { ThemeContext } from "./theme-context";
 
-export function ThemeProvider({ children }) {
-  const [theme, setTheme] = useState(() => {
-    if (typeof window !== "undefined") {
-      const stored = localStorage.getItem("portfolio-theme");
-      if (stored) return stored;
-    }
+function getInitialTheme() {
+  if (typeof window === "undefined") {
     return "dark";
-  });
+  }
+
+  const stored = window.localStorage.getItem("portfolio-theme");
+  if (stored === "dark" || stored === "light") {
+    return stored;
+  }
+
+  return window.matchMedia("(prefers-color-scheme: light)").matches
+    ? "light"
+    : "dark";
+}
+
+export function ThemeProvider({ children }) {
+  const [theme, setTheme] = useState(getInitialTheme);
 
   useEffect(() => {
     const root = document.documentElement;
@@ -19,7 +28,8 @@ export function ThemeProvider({ children }) {
       root.classList.add("light");
       root.classList.remove("dark");
     }
-    localStorage.setItem("portfolio-theme", theme);
+    root.style.colorScheme = theme;
+    window.localStorage.setItem("portfolio-theme", theme);
   }, [theme]);
 
   const toggleTheme = () => {

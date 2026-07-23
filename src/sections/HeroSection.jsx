@@ -1,5 +1,5 @@
 import { Suspense, lazy, useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import {
   FiGithub,
   FiLinkedin,
@@ -45,6 +45,7 @@ const socialLinks = [
 ];
 
 function HeroSection() {
+  const shouldReduceMotion = useReducedMotion();
   const [roleIndex, setRoleIndex] = useState(0);
   const [displayText, setDisplayText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
@@ -52,6 +53,10 @@ function HeroSection() {
   const baseUrl = import.meta.env.BASE_URL || "/";
 
   useEffect(() => {
+    if (shouldReduceMotion) {
+      return undefined;
+    }
+
     const currentRole = targetRoles[roleIndex];
     const shouldPause = !isDeleting && displayText === currentRole;
     const shouldAdvance = isDeleting && displayText === "";
@@ -76,12 +81,14 @@ function HeroSection() {
     }, shouldPause ? 2000 : isDeleting ? 40 : 80);
 
     return () => window.clearTimeout(timeout);
-  }, [displayText, isDeleting, roleIndex]);
+  }, [displayText, isDeleting, roleIndex, shouldReduceMotion]);
 
   const scrollToSection = (id) => {
     const el = document.getElementById(id);
     if (el) el.scrollIntoView({ behavior: "smooth" });
   };
+
+  const roleText = shouldReduceMotion ? targetRoles[0] : displayText;
 
   return (
     <section className="hero-section" id="hero">
@@ -107,7 +114,7 @@ function HeroSection() {
 
           <div className="hero-role">
             <span className="role-prefix">{"> "}</span>
-            <span className="role-text">{displayText}</span>
+            <span className="role-text">{roleText}</span>
             <span className="role-cursor">|</span>
           </div>
 
@@ -117,6 +124,7 @@ function HeroSection() {
 
           <div className="hero-ctas">
             <button
+              type="button"
               className="cta-primary"
               onClick={() => scrollToSection("contact")}
             >
@@ -124,6 +132,7 @@ function HeroSection() {
               <span>Hire Me</span>
             </button>
             <button
+              type="button"
               className="cta-secondary"
               onClick={() => scrollToSection("projects")}
             >
@@ -146,7 +155,7 @@ function HeroSection() {
                 key={link.label}
                 href={link.href}
                 target={link.href.startsWith("mailto") ? undefined : "_blank"}
-                rel="noreferrer"
+                rel={link.href.startsWith("mailto") ? undefined : "noopener noreferrer"}
                 aria-label={link.label}
                 className="hero-social-icon"
               >
@@ -167,6 +176,7 @@ function HeroSection() {
           {terminalOpen ? (
             <div className="terminal-wrapper">
               <button
+                type="button"
                 className="terminal-close-btn"
                 onClick={() => setTerminalOpen(false)}
                 aria-label="Close terminal"
@@ -226,6 +236,7 @@ function HeroSection() {
                 </div>
                 <div className="code-line code-blank" />
                 <button
+                  type="button"
                   className="terminal-toggle-btn"
                   onClick={() => setTerminalOpen(true)}
                 >
@@ -239,6 +250,7 @@ function HeroSection() {
       </div>
 
       <button
+        type="button"
         className="scroll-indicator"
         onClick={() => scrollToSection("about")}
         aria-label="Scroll to about section"

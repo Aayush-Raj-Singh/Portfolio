@@ -25,7 +25,7 @@ function SkillsSection() {
   const activeCat = skillCategories.find((c) => c.id === activeCategory);
 
   return (
-    <section className="skills-section" id="skills">
+    <section className="skills-section">
       <SectionHeading
         eyebrow="Skills"
         title="Security Skill Matrix"
@@ -33,12 +33,14 @@ function SkillsSection() {
       />
 
       <div className="skills-layout">
-        <ScrollReveal direction="left" className="skills-sidebar">
+        <ScrollReveal direction="left" className="skills-sidebar" role="group" aria-label="Skill categories">
           {skillCategories.map((cat) => (
             <button
               key={cat.id}
+              type="button"
               className={`skill-category-btn ${activeCategory === cat.id ? "skill-cat-active" : ""}`}
               onClick={() => setActiveCategory(cat.id)}
+              aria-pressed={activeCategory === cat.id}
             >
               <span className="skill-cat-icon">{cat.icon}</span>
               <span className="skill-cat-label">{cat.title}</span>

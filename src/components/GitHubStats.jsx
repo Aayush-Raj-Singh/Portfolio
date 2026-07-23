@@ -11,25 +11,30 @@ function GitHubStats({ username = "Aayush-Raj-Singh" }) {
   const cacheKey = `github-stats:${username}`;
 
   useEffect(() => {
+    const controller = new AbortController();
+
     async function fetchStats() {
       try {
         const cachedStats = sessionStorage.getItem(cacheKey);
         if (cachedStats) {
-          setStats(JSON.parse(cachedStats));
+          const parsed = JSON.parse(cachedStats);
+          if (parsed.cachedAt && Date.now() - parsed.cachedAt < 1000 * 60 * 30) {
+            setStats(parsed);
+            setLoading(false);
+            return;
+          }
         }
 
-        const res = await fetch(`https://api.github.com/users/${username}`);
-        if (!res.ok) {
+        const [res, reposRes] = await Promise.all([
+          fetch(`https://api.github.com/users/${username}`, { signal: controller.signal }),
+          fetch(`https://api.github.com/users/${username}/repos?per_page=100&sort=updated`, {
+            signal: controller.signal,
+          }),
+        ]);
+        if (!res.ok || !reposRes.ok) {
           throw new Error("GitHub user fetch failed");
         }
         const user = await res.json();
-
-        const reposRes = await fetch(
-          `https://api.github.com/users/${username}/repos?per_page=100&sort=updated`
-        );
-        if (!reposRes.ok) {
-          throw new Error("GitHub repos fetch failed");
-        }
         const repos = await reposRes.json();
 
         const totalStars = Array.isArray(repos)
@@ -40,38 +45,35 @@ function GitHubStats({ username = "Aayush-Raj-Singh" }) {
           ? [...new Set(repos.filter((r) => r.language).map((r) => r.language))]
           : [];
 
-        setStats({
+        const nextStats = {
           publicRepos: user.public_repos || 0,
           followers: user.followers || 0,
           totalStars,
           languages: languages.slice(0, 5),
-          avatarUrl: user.avatar_url,
           profileUrl: user.html_url,
-        });
-        sessionStorage.setItem(
-          cacheKey,
-          JSON.stringify({
-            publicRepos: user.public_repos || 0,
-            followers: user.followers || 0,
-            totalStars,
-            languages: languages.slice(0, 5),
-            avatarUrl: user.avatar_url,
-            profileUrl: user.html_url,
-          })
-        );
-      } catch {
+          cachedAt: Date.now(),
+        };
+        setStats(nextStats);
+        sessionStorage.setItem(cacheKey, JSON.stringify(nextStats));
+      } catch (error) {
+        if (error?.name === "AbortError") {
+          return;
+        }
         setStats((prev) => prev ?? null);
       } finally {
-        setLoading(false);
+        if (!controller.signal.aborted) {
+          setLoading(false);
+        }
       }
     }
 
     fetchStats();
+    return () => controller.abort();
   }, [username, cacheKey]);
 
   if (loading) {
     return (
-      <div className="github-stats-loading">
+      <div className="github-stats-loading" role="status">
         <div className="loading-spinner" />
         <span>Loading GitHub stats...</span>
       </div>
@@ -101,7 +103,7 @@ function GitHubStats({ username = "Aayush-Raj-Singh" }) {
       <a
         href={stats?.profileUrl || profileUrl}
         target="_blank"
-        rel="noreferrer"
+        rel="noopener noreferrer"
         className="github-profile-link"
       >
         <FiGithub size={20} />
@@ -112,7 +114,7 @@ function GitHubStats({ username = "Aayush-Raj-Singh" }) {
           <MotionDiv
             key={item.label}
             className="github-stat-card"
-            initial={{ opacity: 0, scale: 0.8 }}
+            initial={{ opacity: 1, scale: 0.96 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.4, delay: i * 0.1 }}

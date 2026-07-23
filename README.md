@@ -5,7 +5,7 @@ React + Vite portfolio aligned with the ATS resume and power CV for 2026 cyberse
 ## Content Source Of Truth
 
 - Career identity, target roles, skills, projects, experience, proof points, and links live in `src/data/careerProfile.js`.
-- Resume downloads currently point to `public/assets/Aayush_Raj_Cybersecurity_Resume.pdf`.
+- Resume downloads point to `public/assets/Aayush_Raj_Cyber_Security_Resume.pdf`.
 - Keep project names, GitHub links, certifications, location, and contact details synchronized with `../resume.tex` and `../CV_power.tex`.
 
 ## Local Workflow
@@ -142,7 +142,7 @@ Portfolio validation:
 
 These items need external confirmation and should not be fabricated automatically:
 
-- Regenerate `Portfolio/public/assets/Aayush_Raj_Cybersecurity_Resume.pdf` from the updated `resume.tex`.
+- Regenerate `Portfolio/public/assets/Aayush_Raj_Cyber_Security_Resume.pdf` from the updated `resume.tex`.
 - Compile `CV_power.tex` in Overleaf/TeX Live and visually confirm the final two-page layout.
 - Confirm that `linkedin.com/in/abhayaprabha` is the preferred public LinkedIn URL.
 - Update LinkedIn headline/about/projects/certifications to match the rebuilt brand.

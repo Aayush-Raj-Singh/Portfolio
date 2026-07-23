@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import SectionHeading from "../components/SectionHeading";
 import ScrollReveal from "../components/ScrollReveal";
 import {
@@ -11,6 +11,14 @@ import {
   FiAlertCircle,
 } from "react-icons/fi";
 import { identity } from "../data/careerProfile";
+import { contactLimits, validateContactInput } from "../lib/contact";
+
+const initialFormData = {
+  name: "",
+  email: "",
+  subject: "",
+  message: "",
+};
 
 const contactInfo = [
   {
@@ -41,55 +49,83 @@ const contactSocials = [
 ];
 
 function ContactSection() {
-  const formRef = useRef(null);
   const [status, setStatus] = useState("idle");
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    subject: "",
-    message: "",
-  });
+  const [formData, setFormData] = useState(initialFormData);
+  const [errors, setErrors] = useState({});
+  const abortControllerRef = useRef(null);
+  const resetTimerRef = useRef(null);
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  useEffect(() => () => {
+    abortControllerRef.current?.abort();
+    window.clearTimeout(resetTimerRef.current);
+  }, []);
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    if (!Object.hasOwn(initialFormData, name)) {
+      return;
+    }
+
+    setFormData((current) => ({ ...current, [name]: value }));
+    setErrors((current) => ({ ...current, [name]: undefined }));
+    if (status !== "idle") {
+      setStatus("idle");
+    }
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const validation = validateContactInput(formData);
+
+    if (!validation.isValid) {
+      setErrors(validation.errors);
+      return;
+    }
+
+    abortControllerRef.current?.abort();
+    const controller = new AbortController();
+    abortControllerRef.current = controller;
     setStatus("sending");
 
     try {
       const response = await fetch(`https://formsubmit.co/ajax/${identity.email}`, {
         method: "POST",
+        credentials: "omit",
+        signal: controller.signal,
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
         },
         body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          subject: formData.subject,
-          message: formData.message,
-          _subject: `Portfolio Contact: ${formData.subject}`,
+          ...validation.values,
+          _subject: `Portfolio Contact: ${validation.values.subject}`,
           _template: "box",
         }),
       });
 
       if (response.ok) {
         setStatus("success");
-        setFormData({ name: "", email: "", subject: "", message: "" });
+        setFormData(initialFormData);
+        setErrors({});
       } else {
         throw new Error("Form submission failed");
       }
-      setTimeout(() => setStatus("idle"), 4000);
-    } catch {
+      window.clearTimeout(resetTimerRef.current);
+      resetTimerRef.current = window.setTimeout(() => setStatus("idle"), 5000);
+    } catch (error) {
+      if (error?.name === "AbortError") {
+        return;
+      }
       setStatus("error");
-      setTimeout(() => setStatus("idle"), 4000);
+    } finally {
+      if (abortControllerRef.current === controller) {
+        abortControllerRef.current = null;
+      }
     }
   };
 
   return (
-    <section className="contact-section" id="contact">
+    <section className="contact-section">
       <SectionHeading
         eyebrow="Contact"
         title="Let's Connect"
@@ -129,7 +165,7 @@ function ContactSection() {
                 key={link.label}
                 href={link.href}
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 aria-label={link.label}
                 className="contact-social-icon"
               >
@@ -140,12 +176,7 @@ function ContactSection() {
         </ScrollReveal>
 
         <ScrollReveal direction="right" className="contact-form-panel">
-          <form
-            ref={formRef}
-            onSubmit={handleSubmit}
-            className="contact-form"
-            autoComplete="off"
-          >
+          <form onSubmit={handleSubmit} className="contact-form">
             <div className="form-row">
               <div className="form-group">
                 <label htmlFor="contact-name">Full Name</label>
@@ -157,7 +188,13 @@ function ContactSection() {
                   value={formData.name}
                   onChange={handleChange}
                   required
+                  minLength="2"
+                  maxLength={contactLimits.name}
+                  autoComplete="name"
+                  aria-invalid={Boolean(errors.name)}
+                  aria-describedby={errors.name ? "contact-name-error" : undefined}
                 />
+                {errors.name && <p className="form-error" id="contact-name-error">{errors.name}</p>}
               </div>
               <div className="form-group">
                 <label htmlFor="contact-email">Email Address</label>
@@ -169,7 +206,12 @@ function ContactSection() {
                   value={formData.email}
                   onChange={handleChange}
                   required
+                  maxLength={contactLimits.email}
+                  autoComplete="email"
+                  aria-invalid={Boolean(errors.email)}
+                  aria-describedby={errors.email ? "contact-email-error" : undefined}
                 />
+                {errors.email && <p className="form-error" id="contact-email-error">{errors.email}</p>}
               </div>
             </div>
 
@@ -183,7 +225,12 @@ function ContactSection() {
                 value={formData.subject}
                 onChange={handleChange}
                 required
+                minLength="3"
+                maxLength={contactLimits.subject}
+                aria-invalid={Boolean(errors.subject)}
+                aria-describedby={errors.subject ? "contact-subject-error" : undefined}
               />
+              {errors.subject && <p className="form-error" id="contact-subject-error">{errors.subject}</p>}
             </div>
 
             <div className="form-group">
@@ -196,7 +243,12 @@ function ContactSection() {
                 value={formData.message}
                 onChange={handleChange}
                 required
+                minLength="10"
+                maxLength={contactLimits.message}
+                aria-invalid={Boolean(errors.message)}
+                aria-describedby={errors.message ? "contact-message-error" : undefined}
               />
+              {errors.message && <p className="form-error" id="contact-message-error">{errors.message}</p>}
             </div>
 
             <button
@@ -229,6 +281,16 @@ function ContactSection() {
                 </>
               )}
             </button>
+            {status === "success" && (
+              <p className="form-status form-status-success" role="status">
+                Thanks—your message has been sent.
+              </p>
+            )}
+            {status === "error" && (
+              <p className="form-status form-status-error" role="status">
+                The message could not be sent. Please <a href={`mailto:${identity.email}`}>email Aayush directly</a> instead.
+              </p>
+            )}
           </form>
         </ScrollReveal>
       </div>

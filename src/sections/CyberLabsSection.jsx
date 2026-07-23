@@ -10,7 +10,7 @@ import {
   FiLinkedin,
   FiUsers,
 } from "react-icons/fi";
-import { identity } from "../data/careerProfile";
+import { identity, securityTools } from "../data/careerProfile";
 
 const MotionDiv = motion.div;
 const MotionA = motion.a;
@@ -45,17 +45,6 @@ const linkedInHighlights = [
     label: "Network",
     value: "Connect",
   },
-];
-
-const securityTools = [
-  { name: "Kali Linux", category: "OS" },
-  { name: "Nmap", category: "Scanning" },
-  { name: "Burp Suite", category: "Web Testing" },
-  { name: "Wireshark", category: "Network" },
-  { name: "Metasploit", category: "Exploitation" },
-  { name: "Splunk", category: "SIEM" },
-  { name: "OWASP ZAP", category: "Web Testing" },
-  { name: "Volatility", category: "Forensics" },
 ];
 
 const certificateGroups = [
@@ -510,8 +499,28 @@ function CyberLabsSection() {
 
   const activeGroup = groups.find((group) => group.id === activeTab) ?? groups[0];
 
+  const handleTabKeyDown = (event, index) => {
+    if (!['ArrowRight', 'ArrowLeft', 'Home', 'End'].includes(event.key)) {
+      return;
+    }
+
+    event.preventDefault();
+    const lastIndex = groups.length - 1;
+    const nextIndex =
+      event.key === 'Home'
+        ? 0
+        : event.key === 'End'
+          ? lastIndex
+          : event.key === 'ArrowRight'
+            ? (index + 1) % groups.length
+            : (index - 1 + groups.length) % groups.length;
+    const nextGroup = groups[nextIndex];
+    setActiveTab(nextGroup.id);
+    document.getElementById(`certificate-tab-${nextGroup.id}`)?.focus();
+  };
+
   return (
-    <section className="cyberlabs-section" id="cyber-labs">
+    <section className="cyberlabs-section">
       <SectionHeading
         eyebrow="Cybersecurity Labs"
         title="Certifications & Badges"
@@ -526,7 +535,7 @@ function CyberLabsSection() {
               <MotionDiv
                 key={tool.name}
                 className="tool-chip"
-                initial={{ opacity: 0, scale: 0.8 }}
+                initial={{ opacity: 1, scale: 0.96 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.3, delay: i * 0.05 }}
@@ -541,15 +550,20 @@ function CyberLabsSection() {
       </ScrollReveal>
 
       <div className="badge-tabs" role="tablist" aria-label="Certificate groups">
-        {groups.map((group) => (
+        {groups.map((group, index) => (
           <button
             key={group.id}
+            id={`certificate-tab-${group.id}`}
+            type="button"
             className={`badge-tab ${activeTab === group.id ? "tab-active" : ""}`}
             onClick={() => setActiveTab(group.id)}
+            onKeyDown={(event) => handleTabKeyDown(event, index)}
             role="tab"
             aria-selected={activeTab === group.id}
+            aria-controls={`certificate-panel-${group.id}`}
+            tabIndex={activeTab === group.id ? 0 : -1}
           >
-            {group.label} ({group.count}+)
+            {group.label} ({group.count})
           </button>
         ))}
       </div>
@@ -559,15 +573,20 @@ function CyberLabsSection() {
         extra co-curricular records are grouped in the final tab.
       </p>
 
-      <div className="badges-grid">
+      <div
+        className="badges-grid"
+        id={`certificate-panel-${activeGroup.id}`}
+        role="tabpanel"
+        aria-labelledby={`certificate-tab-${activeGroup.id}`}
+      >
         {activeGroup.items.map((badge, i) => (
           <MotionA
             key={badge.title}
             href={badge.href.startsWith("http") ? badge.href : `${baseUrl}${badge.href}`}
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
             className="badge-card"
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 1, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.4, delay: i * 0.05 }}
@@ -579,6 +598,7 @@ function CyberLabsSection() {
                   src={badge.img.startsWith("http") ? badge.img : `${baseUrl}${badge.img}`}
                   alt={`${badge.title} preview`}
                   loading="lazy"
+                  decoding="async"
                 />
               ) : (
                 <div className="badge-placeholder" aria-hidden="true">
@@ -628,7 +648,7 @@ function CyberLabsSection() {
               <a
                 href="https://tryhackme.com/p/Abhayaprabha"
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 className="thm-link"
               >
                 <FiExternalLink size={16} />
@@ -669,7 +689,7 @@ function CyberLabsSection() {
               <a
                 href={identity.linkedin}
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 className="thm-link profile-link-linkedin"
               >
                 <FiExternalLink size={16} />

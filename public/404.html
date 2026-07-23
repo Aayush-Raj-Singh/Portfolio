@@ -3,16 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Redirecting...</title>
-    <script type="text/javascript">
-      const segmentCount = 1;
-      const location = window.location;
-      const path = location.pathname.split("/");
-      const base = path.slice(0, segmentCount + 1).join("/");
-      const rest = path.slice(segmentCount + 1).join("/");
-      const redirect = `${base}/?/${rest}${location.search}${location.hash}`;
-      window.location.replace(redirect);
-    </script>
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self'; style-src 'self'; upgrade-insecure-requests" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <title>Redirecting to portfolio…</title>
+    <script src="404-redirect.js" defer></script>
   </head>
-  <body></body>
+  <body>Redirecting to the portfolio…</body>
 </html>

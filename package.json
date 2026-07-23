@@ -1,13 +1,20 @@
 {
-  "name": "react-app",
+  "name": "aayush-raj-cybersecurity-portfolio",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "lint": "eslint .",
-    "preview": "vite preview"
+    "lint": "eslint . --max-warnings 0",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit",
+    "type-check": "npm run typecheck"
+  },
+  "engines": {
+    "node": ">=20.19.0 || >=22.12.0"
   },
   "dependencies": {
     "framer-motion": "^12.38.0",
@@ -27,6 +34,8 @@
     "globals": "^16.5.0",
     "postcss": "^8.4.38",
     "tailwindcss": "^3.4.17",
-    "vite": "^7.2.4"
+    "typescript": "^7.0.2",
+    "vite": "^7.2.4",
+    "vitest": "^4.1.10"
   }
 }

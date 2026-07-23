@@ -31,7 +31,7 @@ function ProjectCard({ project, index = 0 }) {
   return (
     <MotionArticle
       className="project-card"
-      initial={{ opacity: 0, y: 40 }}
+      initial={{ opacity: 1, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
@@ -42,6 +42,7 @@ function ProjectCard({ project, index = 0 }) {
             src={`${baseUrl}${project.image}`}
             alt={`${project.title} preview`}
             loading="lazy"
+            decoding="async"
           />
           <div className="project-card-image-overlay" />
         </div>
@@ -61,7 +62,7 @@ function ProjectCard({ project, index = 0 }) {
               <a
                 href={project.github}
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 aria-label={`${project.title} GitHub repository`}
                 className="project-link"
               >
@@ -73,7 +74,7 @@ function ProjectCard({ project, index = 0 }) {
               <a
                 href={project.live}
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 aria-label={`${project.title} live demo`}
                 className="project-link"
               >
@@ -97,6 +98,8 @@ function ProjectCard({ project, index = 0 }) {
           type="button"
           className={`case-study-toggle ${expanded ? "case-study-open" : ""}`}
           onClick={() => setExpanded((open) => !open)}
+          aria-expanded={expanded}
+          aria-controls={`case-study-${index}`}
         >
           <span>View Case Study</span>
           <FiChevronDown size={16} />
@@ -106,6 +109,7 @@ function ProjectCard({ project, index = 0 }) {
           {expanded && (
             <MotionDiv
               className="case-study-panel"
+              id={`case-study-${index}`}
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: "auto", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}

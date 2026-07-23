@@ -1,0 +1,17 @@
+{
+  "name": "Aayush Raj | Cybersecurity Analyst",
+  "short_name": "Aayush Raj",
+  "description": "Cybersecurity portfolio for Aayush Raj, focused on SOC operations, VAPT, threat intelligence, vulnerability management, and security automation.",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#0a0a0f",
+  "theme_color": "#0b1020",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

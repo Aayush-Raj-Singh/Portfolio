@@ -24,3 +24,8 @@ desktop.ini
 *.njsproj
 *.sln
 *.sw?
+
+# Temporary test/runtime captures
+runtime*.png
+*.har
+

@@ -4,7 +4,7 @@ import { timeline } from "../data/careerProfile";
 
 function ExperienceSection() {
   return (
-    <section className="experience-section" id="experience">
+    <section className="experience-section">
       <SectionHeading
         eyebrow="Journey"
         title="Experience & Growth"

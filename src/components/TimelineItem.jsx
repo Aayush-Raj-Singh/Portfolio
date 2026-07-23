@@ -8,7 +8,7 @@ function TimelineItem({ item, index = 0 }) {
   return (
     <MotionDiv
       className={`timeline-item ${isEven ? "timeline-left" : "timeline-right"}`}
-      initial={{ opacity: 0, x: isEven ? -40 : 40 }}
+      initial={{ opacity: 1, x: isEven ? -24 : 24 }}
       whileInView={{ opacity: 1, x: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: 0.1 }}

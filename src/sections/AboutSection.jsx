@@ -42,7 +42,7 @@ function AboutSection() {
   const baseUrl = import.meta.env.BASE_URL || "/";
 
   return (
-    <section className="about-section" id="about">
+    <section className="about-section">
       <SectionHeading
         eyebrow="About Me"
         title="Cybersecurity Analyst Profile"
@@ -53,10 +53,13 @@ function AboutSection() {
         <ScrollReveal direction="left" className="about-image-wrap">
           <div className="about-image-container">
             <img
-              src={`${baseUrl}assets/pp.jpg`}
+              src={`${baseUrl}assets/profile.png`}
               alt="Aayush Raj portrait"
               className="about-image"
               loading="lazy"
+              width="1254"
+              height="1254"
+              decoding="async"
             />
             <div className="about-image-border" />
           </div>
@@ -79,7 +82,7 @@ function AboutSection() {
               <MotionDiv
                 key={stat.label}
                 className="about-stat"
-                initial={{ opacity: 0, scale: 0.8 }}
+                initial={{ opacity: 1, scale: 0.96 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: i * 0.1 }}

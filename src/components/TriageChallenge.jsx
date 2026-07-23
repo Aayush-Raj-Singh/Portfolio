@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { FiArrowRight, FiCheck, FiRefreshCw, FiShield, FiX } from "react-icons/fi";
 
@@ -60,8 +60,59 @@ function TriageChallenge() {
   const [challengeIndex, setChallengeIndex] = useState(0);
   const [userAnswer, setUserAnswer] = useState("");
   const [result, setResult] = useState(null);
+  const modalRef = useRef(null);
+  const closeButtonRef = useRef(null);
+  const previousFocusRef = useRef(null);
 
   const challenge = challenges[challengeIndex];
+
+  useEffect(() => {
+    if (!isOpen) {
+      return undefined;
+    }
+
+    previousFocusRef.current = document.activeElement;
+    document.body.classList.add("modal-open");
+    closeButtonRef.current?.focus();
+
+    const onKeyDown = (event) => {
+      if (event.key === "Escape") {
+        setIsOpen(false);
+        setResult(null);
+        setUserAnswer("");
+        return;
+      }
+
+      if (event.key !== "Tab") {
+        return;
+      }
+
+      const focusable = modalRef.current?.querySelectorAll(
+        'button:not([disabled]), input:not([disabled]), a[href]'
+      );
+      if (!focusable?.length) {
+        return;
+      }
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+
+    window.addEventListener("keydown", onKeyDown);
+
+    return () => {
+      document.body.classList.remove("modal-open");
+      window.removeEventListener("keydown", onKeyDown);
+      previousFocusRef.current?.focus?.();
+    };
+  }, [isOpen]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -89,7 +140,13 @@ function TriageChallenge() {
 
   return (
     <>
-      <button className="triage-trigger" onClick={() => setIsOpen(true)}>
+      <button
+        type="button"
+        className="triage-trigger"
+        onClick={() => setIsOpen(true)}
+        aria-haspopup="dialog"
+        aria-expanded={isOpen}
+      >
         <FiShield size={18} />
         <span>Test Your Security Instinct</span>
       </button>
@@ -105,6 +162,10 @@ function TriageChallenge() {
           >
             <MotionDiv
               className="triage-modal"
+              ref={modalRef}
+              role="dialog"
+              aria-modal="true"
+              aria-label="SOC triage challenge"
               initial={{ opacity: 0, scale: 0.94, y: 30 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.94, y: 30 }}
@@ -117,6 +178,8 @@ function TriageChallenge() {
                   LIVE ALERT - SOC TRIAGE CHALLENGE
                 </div>
                 <button
+                  ref={closeButtonRef}
+                  type="button"
                   className="triage-close"
                   onClick={handleClose}
                   aria-label="Close challenge"
@@ -137,6 +200,7 @@ function TriageChallenge() {
                         type="button"
                         className={`triage-log-line ${userAnswer === String(log.num) ? "log-selected" : ""}`}
                         onClick={() => setUserAnswer(String(log.num))}
+                        aria-pressed={userAnswer === String(log.num)}
                       >
                         <span className="log-num">{log.num}</span>
                         <span className="log-text">{log.text}</span>
@@ -188,6 +252,7 @@ function TriageChallenge() {
                   </p>
                   <div className="result-actions">
                     <button
+                      type="button"
                       className="result-btn result-btn-primary"
                       onClick={() => scrollTo("contact")}
                     >
@@ -195,6 +260,7 @@ function TriageChallenge() {
                       <FiArrowRight size={16} />
                     </button>
                     <button
+                      type="button"
                       className="result-btn result-btn-secondary"
                       onClick={handleReset}
                     >
@@ -228,6 +294,7 @@ function TriageChallenge() {
                   </p>
                   <div className="result-actions">
                     <button
+                      type="button"
                       className="result-btn result-btn-primary"
                       onClick={handleReset}
                     >
@@ -235,6 +302,7 @@ function TriageChallenge() {
                       <span>Try another</span>
                     </button>
                     <button
+                      type="button"
                       className="result-btn result-btn-secondary"
                       onClick={() => scrollTo("projects")}
                     >

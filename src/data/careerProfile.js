@@ -12,7 +12,7 @@ export const identity = {
   portfolioLabel: "aayush-raj-singh.github.io/Portfolio",
   tryHackMe: "https://tryhackme.com/p/Abhayaprabha",
   tryHackMeLabel: "tryhackme.com/p/Abhayaprabha",
-  resumeAsset: "assets/Aayush_Raj_Cybersecurity_Resume.pdf",
+  resumeAsset: "assets/Aayush_Raj_Cyber_Security_Resume.pdf",
 };
 
 export const targetRoles = [

@@ -50,7 +50,7 @@ function SiteFooter() {
     <footer className="site-footer" id="footer">
       <div className="footer-inner">
         <div className="footer-brand">
-          <button className="footer-logo" onClick={scrollToTop}>
+          <button type="button" className="footer-logo" onClick={scrollToTop}>
             <span className="logo-text-main">ARS</span>
             <span className="logo-text-accent">();</span>
           </button>
@@ -84,6 +84,7 @@ function SiteFooter() {
           {quickLinks.map((link) => (
             <button
               key={link.id}
+              type="button"
               className="footer-link"
               onClick={() => scrollTo(link.id)}
             >
@@ -100,7 +101,7 @@ function SiteFooter() {
                 key={link.label}
                 href={link.href}
                 target={link.href.startsWith("mailto") ? undefined : "_blank"}
-                rel="noreferrer"
+                rel={link.href.startsWith("mailto") ? undefined : "noopener noreferrer"}
                 aria-label={link.label}
                 className="footer-social-icon"
               >
@@ -117,6 +118,7 @@ function SiteFooter() {
           <FiHeart size={14} className="inline-heart" /> in {identity.location}.
         </p>
         <button
+          type="button"
           className="back-to-top"
           onClick={scrollToTop}
           aria-label="Back to top"

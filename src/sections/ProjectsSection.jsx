@@ -22,14 +22,14 @@ function ProjectsSection() {
   }, [activeFilter]);
 
   return (
-    <section className="projects-section" id="projects">
+    <section className="projects-section">
       <SectionHeading
         eyebrow="Portfolio"
         title="Security Project Case Studies"
         description="Recruiter-ready project stories covering problem, approach, technology, architecture, challenges, security considerations, results, and GitHub references."
       />
 
-      <div className="project-filter-bar" role="tablist" aria-label="Project filters">
+      <div className="project-filter-bar" aria-label="Project filters">
         {filters.map((filter) => (
           <button
             key={filter}
@@ -38,8 +38,7 @@ function ProjectsSection() {
               activeFilter === filter ? "project-filter-active" : ""
             }`}
             onClick={() => setActiveFilter(filter)}
-            role="tab"
-            aria-selected={activeFilter === filter}
+            aria-pressed={activeFilter === filter}
           >
             {filter}
           </button>
@@ -52,10 +51,8 @@ function ProjectsSection() {
         ))}
       </div>
 
-      <ScrollReveal delay={0.3}>
-        <div className="github-section">
-          <GitHubStats username="Aayush-Raj-Singh" />
-        </div>
+      <ScrollReveal delay={0.3} className="github-section">
+        <GitHubStats username="Aayush-Raj-Singh" />
       </ScrollReveal>
     </section>
   );

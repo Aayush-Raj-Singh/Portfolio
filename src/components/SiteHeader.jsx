@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useTheme } from "../context/useTheme";
 import { FiSun, FiMoon, FiMenu, FiX, FiDownload } from "react-icons/fi";
 import { identity } from "../data/careerProfile";
@@ -18,6 +18,8 @@ function SiteHeader() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("hero");
+  const closeButtonRef = useRef(null);
+  const previousFocusRef = useRef(null);
   const baseUrl = import.meta.env.BASE_URL || "/";
 
   useEffect(() => {
@@ -37,8 +39,55 @@ function SiteHeader() {
     };
 
     window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  useEffect(() => {
+    if (!mobileOpen) {
+      return undefined;
+    }
+
+    previousFocusRef.current = document.activeElement;
+    document.body.classList.add("menu-open");
+    closeButtonRef.current?.focus();
+
+    const onKeyDown = (event) => {
+      if (event.key === "Escape") {
+        setMobileOpen(false);
+        return;
+      }
+
+      if (event.key !== "Tab") {
+        return;
+      }
+
+      const focusable = document.querySelectorAll(
+        "#mobile-nav-panel button:not([disabled]), #mobile-nav-panel a[href]"
+      );
+      if (!focusable.length) {
+        return;
+      }
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+
+    window.addEventListener("keydown", onKeyDown);
+
+    return () => {
+      document.body.classList.remove("menu-open");
+      window.removeEventListener("keydown", onKeyDown);
+      previousFocusRef.current?.focus?.();
+    };
+  }, [mobileOpen]);
 
   const scrollTo = (id) => {
     const el = document.getElementById(id);
@@ -56,6 +105,7 @@ function SiteHeader() {
       <header className={`site-header ${scrolled ? "header-scrolled" : ""}`} id="site-header">
         <div className="header-inner">
           <button
+            type="button"
             className="header-logo"
             onClick={() => scrollTo("hero")}
             aria-label="ARS(); home"
@@ -68,9 +118,10 @@ function SiteHeader() {
             {navLinks.map((link) => (
               <button
                 key={link.id}
+                type="button"
                 onClick={() => scrollTo(link.id)}
                 className={`nav-link ${activeSection === link.id ? "nav-active" : ""}`}
-                aria-current={activeSection === link.id ? "page" : undefined}
+                aria-current={activeSection === link.id ? "location" : undefined}
               >
                 {link.label}
               </button>
@@ -90,6 +141,7 @@ function SiteHeader() {
             </a>
 
             <button
+              type="button"
               className="theme-toggle"
               onClick={toggleTheme}
               aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
@@ -98,6 +150,7 @@ function SiteHeader() {
             </button>
 
             <button
+              type="button"
               className="mobile-toggle"
               onClick={() => setMobileOpen(!mobileOpen)}
               aria-label={mobileOpen ? "Close menu" : "Open menu"}
@@ -110,11 +163,8 @@ function SiteHeader() {
         </div>
       </header>
 
-      {/* Mobile Overlay */}
-      <div
-        className={`mobile-nav-overlay ${mobileOpen ? "mobile-nav-open" : ""}`}
-        onClick={() => setMobileOpen(false)}
-      >
+      {mobileOpen && (
+        <div className="mobile-nav-overlay mobile-nav-open" onClick={() => setMobileOpen(false)}>
         <nav
           id="mobile-nav-panel"
           className="mobile-nav-panel"
@@ -125,7 +175,12 @@ function SiteHeader() {
             <span className="logo-text-main">
               ARS<span className="logo-text-accent">();</span>
             </span>
-            <button onClick={() => setMobileOpen(false)} aria-label="Close menu">
+            <button
+              ref={closeButtonRef}
+              type="button"
+              onClick={() => setMobileOpen(false)}
+              aria-label="Close menu"
+            >
               <FiX size={24} />
             </button>
           </div>
@@ -133,9 +188,10 @@ function SiteHeader() {
             {navLinks.map((link) => (
               <button
                 key={link.id}
+                type="button"
                 onClick={() => scrollTo(link.id)}
                 className={`mobile-link ${activeSection === link.id ? "mobile-link-active" : ""}`}
-                aria-current={activeSection === link.id ? "page" : undefined}
+                aria-current={activeSection === link.id ? "location" : undefined}
               >
                 {link.label}
               </button>
@@ -153,7 +209,8 @@ function SiteHeader() {
             </a>
           </div>
         </nav>
-      </div>
+        </div>
+      )}
     </>
   );
 }
