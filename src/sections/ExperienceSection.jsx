@@ -6,7 +6,7 @@ import { experiences, timeline } from "../data/careerProfile";
 
 function ExperienceSection() {
   return (
-    <section className="experience-section" id="experience-details">
+    <section className="experience-section">
       <SectionHeading
         eyebrow="Experience"
         title="Professional Experience & Training"
